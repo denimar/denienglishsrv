@@ -10,7 +10,11 @@ public class SampleController {
     @RequestMapping("/hello")
     @ResponseBody
     String home() {
+<<<<<<< HEAD
         return "Hello World 888 !";
+=======
+        return "Hello World 777 !";
+>>>>>>> 38a9d35b9c95a828193191b39bc096e537cca477
     }	
 
 }
