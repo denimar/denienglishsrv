@@ -10,7 +10,7 @@ public class SampleController {
     @RequestMapping("/hello")
     @ResponseBody
     String home() {
-        return "Hello World 999 !";
+        return "Hello World 22222 !";
     }	
 
 }
