@@ -25,7 +25,6 @@ import com.denimar.denienglishsrv.Application;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
 @WebAppConfiguration
-@ActiveProfiles("test")
 @Transactional
 public class ItemControllerTest {
 
