@@ -131,7 +131,6 @@
 							<warName>ROOT</warName>
 						</configuration>
 					</plugin>
-					  <!--
 					   <plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-surefire-plugin</artifactId>
@@ -140,7 +139,6 @@
 							<skipTests>false</skipTests>
 						</configuration>
 					    </plugin>	
-					    -->
 				</plugins>
 			</build>
 		</profile>
