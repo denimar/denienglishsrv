@@ -4,12 +4,9 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -42,11 +39,11 @@ public class T50DCI implements java.io.Serializable {
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "dt_inclusao", nullable = false)
-	private Date dt_inclusao;
+	private Date dt_inclusao = new Date();
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "dt_alteracao", nullable = false)
-	private Date dt_alteracao;
+	private Date dt_alteracao = new Date();
 
 	public int getCd_dicionario() {
 		return cd_dicionario;
