@@ -33,11 +33,11 @@ public class T51PRN implements java.io.Serializable {
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "dt_inclusao", nullable = false)
-	private Date dt_inclusao;
+	private Date dt_inclusao = new Date();
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "dt_alteracao", nullable = false)
-	private Date dt_alteracao;
+	private Date dt_alteracao = new Date();
 	
 	
 	public final int getCd_pronuncia() {
