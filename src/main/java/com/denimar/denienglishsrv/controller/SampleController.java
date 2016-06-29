@@ -10,7 +10,7 @@ public class SampleController {
     @RequestMapping("/hello")
     @ResponseBody
     String home() {
-    	String teste = "Texto 5555555555 ";
+    	String teste = "Texto 7777777777 ";
         return teste;
     }	
 
