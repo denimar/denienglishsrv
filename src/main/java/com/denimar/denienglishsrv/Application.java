@@ -6,10 +6,12 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.web.SpringBootServletInitializer;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @SpringBootApplication
 @ComponentScan
+@EnableTransactionManagement
 public class Application extends SpringBootServletInitializer {  
 	
     @Override

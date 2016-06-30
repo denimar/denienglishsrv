@@ -10,8 +10,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.CascadeType;
-
 /*------------------------------------------
 Videos
 -------------------------------------------*/
@@ -77,5 +75,5 @@ public class T08VDO implements java.io.Serializable {
 	public final void setBl_fazer_revisao(boolean bl_fazer_revisao) {
 		this.bl_fazer_revisao = bl_fazer_revisao;
 	}
-
+	
 }

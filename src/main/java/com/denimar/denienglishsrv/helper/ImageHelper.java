@@ -9,7 +9,7 @@ import org.apache.commons.codec.binary.Base64;
 
 public class ImageHelper {
 
-	public static void getImagemBancoDados(HttpServletResponse response, byte[] bt_imagem) throws Exception {
+	public void getImagemBancoDados(HttpServletResponse response, byte[] bt_imagem) throws Exception {
 		//String bt_imagem = BeanUtils.getProperty(objeto, "bt_imagem");
 		//byte[] decoded = org.apache.commons. commons.codec.binary.Base64.decodeBase64(bt_imagem.getBytes());
 		

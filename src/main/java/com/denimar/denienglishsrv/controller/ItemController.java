@@ -16,6 +16,7 @@ import com.denimar.denienglishsrv.domain.T02CTG;
 import com.denimar.denienglishsrv.domain.T05ITM;
 import com.denimar.denienglishsrv.domain.T90IMG;
 import com.denimar.denienglishsrv.helper.ImageHelper;
+import com.denimar.denienglishsrv.helper.ItemHelper;
 import com.denimar.denienglishsrv.service.T02CTGService;
 import com.denimar.denienglishsrv.service.T05ITMService;
 import com.denimar.denienglishsrv.service.T90IMGService;
@@ -27,12 +28,12 @@ public class ItemController {
 	
 	@Autowired	 
 	private T02CTGService t02ctgService;
-	
 	@Autowired	 
 	private T05ITMService t05itmService;
-	
 	@Autowired	 
 	private T90IMGService t90imgService;
+	@Autowired
+	private ItemHelper itemHelper;
 	
 	@RequestMapping("/listall")
 	public RestDefaultReturn<T05ITM> getAllItems(@RequestParam("cd_tipo") final int cd_tipo) {
@@ -61,20 +62,7 @@ public class ItemController {
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	public RestDefaultReturn<T05ITM> addItem(@RequestParam("cd_categoria") final int cd_categoria, @RequestParam("ds_item") final String ds_item, final @RequestBody String bt_imagem_item) throws IOException  {
 		try {
-			T02CTG t02ctg = t02ctgService.findOne(cd_categoria);
-			
-			T05ITM t05itm = new T05ITM();
-			t05itm.setT02ctg(t02ctg);
-			t05itm.setDs_item(ds_item);
-			t05itmService.save(t05itm);
-			
-			//Edita a imagem da subcategoria
-			T90IMG t90img = new T90IMG();
-			byte[] imagem = ImageHelper.getBytesFromUriImagem(bt_imagem_item);
-			t90img.setBt_imagem(imagem);
-			t90img.setT05itm(t05itm);
-			t90imgService.save(t90img);
-			
+			T05ITM t05itm = itemHelper.createItem(cd_categoria, ds_item, bt_imagem_item);
 			return new RestDefaultReturn<T05ITM>(true, t05itm);
 		} catch (Exception e) {
 			return new RestDefaultReturn<T05ITM>(false, e.getMessage());			
@@ -115,7 +103,7 @@ public class ItemController {
 			t05itmService.save(t05itm);
 			
 			//Edita a imagem da subcategoria
-			T90IMG t90img = t90imgService.findByT05itm(t05itm).get(0);
+			T90IMG t90img = t90imgService.findByT05itm(t05itm);
 			byte[] imagem = ImageHelper.getBytesFromUriImagem(bt_imagem_item);
 			t90img.setBt_imagem(imagem);
 			t90imgService.save(t90img);
