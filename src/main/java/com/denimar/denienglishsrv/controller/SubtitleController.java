@@ -1,5 +1,7 @@
 package com.denimar.denienglishsrv.controller;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,8 +33,7 @@ public class SubtitleController {
 	@RequestMapping(value = "/list", produces = MediaType.APPLICATION_JSON_VALUE)
 	public RestDefaultReturn<T08VIS> getSubtitles(@RequestParam("cd_item") final long cd_item)  {
 		T05ITM t05itm = t05itmService.findOne(cd_item);
-		T08VDO t08vdo = t08vdoService.findByT05itm(t05itm);
-		return new RestDefaultReturn<T08VIS>(true, t08visService.findByT08vdo(t08vdo));
+		return new RestDefaultReturn<T08VIS>(true, t08visService.findByT08vdo_t05itm(t05itm));
 	}
 	
 	@RequestMapping(value = "/add", produces = MediaType.APPLICATION_JSON_VALUE)	
@@ -58,7 +59,7 @@ public class SubtitleController {
 			return new RestDefaultReturn<T08VIS>(false, "Record not found!");
 		} else {
 			t08visService.delete(t08vis);
-			return new RestDefaultReturn<T08VIS>(true);
+			return new RestDefaultReturn<T08VIS>(true, t08vis);
 		}	
 	}
 
@@ -71,6 +72,7 @@ public class SubtitleController {
 			t08vis.setNr_start(subtitleRequest.getNr_start());
 			t08vis.setNr_end(subtitleRequest.getNr_end());
 			t08vis.setDs_texto(subtitleRequest.getDs_texto());
+			t08vis.setDt_alteracao(new Date());
 			t08visService.save(t08vis);
 			return new RestDefaultReturn<T08VIS>(true, t08vis);
 		}	
