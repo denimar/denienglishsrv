@@ -36,7 +36,7 @@ public class T05ITM implements java.io.Serializable {
 	private String ds_item;
 	
 	@Column(name = "bl_fazer_revisao", nullable = false)
-	private boolean bl_fazer_revisao;
+	private boolean blFazerRevisao;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "dt_inclusao", nullable = false)
@@ -63,11 +63,11 @@ public class T05ITM implements java.io.Serializable {
 	}
 
 	public boolean isBl_fazer_revisao() {
-		return bl_fazer_revisao;
+		return blFazerRevisao;
 	}
 
 	public void setBl_fazer_revisao(boolean bl_fazer_revisao) {
-		this.bl_fazer_revisao = bl_fazer_revisao;
+		this.blFazerRevisao = bl_fazer_revisao;
 	}
 
 	public T02CTG getT02ctg() {

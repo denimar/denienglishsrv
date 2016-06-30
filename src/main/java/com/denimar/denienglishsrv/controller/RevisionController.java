@@ -1,9 +1,7 @@
 package com.denimar.denienglishsrv.controller;
 
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,49 +22,13 @@ public class RevisionController {
 	private T05REVService t05revService;
 	
 	@RequestMapping(value = "/list", produces = MediaType.APPLICATION_JSON_VALUE)	
-	public RestDefaultReturn<T05REV> getItemsRevisar(@RequestParam final boolean pendente) throws ParseException  {
-		
-		DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		String dateString = " 2016-02-02";
-		Date data = sdf.parse(dateString); // Handle the ParseException here
+	public RestDefaultReturn<T05REV> getItemsRevisar(@RequestParam("pendente") final boolean pendente, @RequestParam("days") final int numberOfDays) throws ParseException  {
+		Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.DATE, numberOfDays * -1);        	
 
-		List<T05REV> list = t05revService.findByDhrevisaoGreaterThan(data);
+		List<T05REV> list = t05revService.findByDhrevisaoLessThanAndT05itm_BlFazerRevisao(cal.getTime(), true);
 		
-		System.out.println(list.size());
-		
-		return null;
-		/*
-		StringBuilder hql = new StringBuilder();
-		hql.append("from T05REV as rev\n");
-		hql.append("right join fetch rev.t05itm itm\n");
-		hql.append("where\n");
-		hql.append("  rev.cd_revisao_item = (select max(rev2.cd_revisao_item) from T05REV rev2 where rev2.t05itm = rev.t05itm)\n");
-		hql.append("  and itm.bl_fazer_revisao = true\n");
-		
-		if (pendente) {
-			hql.append("  and rev.dh_revisao <= :dh_revisao\n");
-		} else {
-			hql.append("  and rev.dh_revisao > :dh_revisao\n");			
-		}
-		
-		hql.append("order by\n");
-		hql.append("  rev.dh_revisao desc");		
-		
-        try {
-    		Calendar cal = Calendar.getInstance();
-    		cal.add(Calendar.DATE, -7);        	
-        	Query qry = sessionDaoImpl.getCurrentSession().createQuery(hql.toString());
-        	qry.setDate("dh_revisao", cal.getTime());
-        	xLista = qry.list();
-        	return xLista;
-        } catch (Exception e) {
-        	e.printStackTrace();
-        	return null;
-        }		
-		
-		List<T05REV> lista = t05revService.findAll();
-		return new RestDefaultReturn<T05REV>(true, lista);
-		*/
+		return new RestDefaultReturn<T05REV>(true, list); 
 	}	
 
 }
