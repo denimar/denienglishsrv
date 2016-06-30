@@ -6,13 +6,12 @@ import java.io.IOException;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.codec.binary.Base64;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ImageHelper {
 
 	public void getImagemBancoDados(HttpServletResponse response, byte[] bt_imagem) throws Exception {
-		//String bt_imagem = BeanUtils.getProperty(objeto, "bt_imagem");
-		//byte[] decoded = org.apache.commons. commons.codec.binary.Base64.decodeBase64(bt_imagem.getBytes());
-		
 		BufferedOutputStream output = new BufferedOutputStream(response.getOutputStream());
         try {
         	output.write(bt_imagem);
