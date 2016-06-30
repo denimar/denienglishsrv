@@ -1,7 +1,5 @@
 package com.denimar.denienglishsrv.controller;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +15,7 @@ import com.denimar.denienglishsrv.domain.T05ITM;
 import com.denimar.denienglishsrv.domain.T08VDO;
 import com.denimar.denienglishsrv.domain.T90IMG;
 import com.denimar.denienglishsrv.dto.CreateVideoRequestDTO;
-import com.denimar.denienglishsrv.helper.VideoHelper;
+import com.denimar.denienglishsrv.helper.ImageHelper;
 import com.denimar.denienglishsrv.service.T05ITMService;
 import com.denimar.denienglishsrv.service.T08VDOService;
 import com.denimar.denienglishsrv.service.T90IMGService;
@@ -36,7 +34,7 @@ public class VideoController {
 	@Autowired
 	private VideoDao videoDao;
 	@Autowired
-	private VideoHelper videoHelper;
+	private ImageHelper imageHelper;
 	
 	@RequestMapping(value = "/get", produces = MediaType.APPLICATION_JSON_VALUE)	
 	public RestDefaultReturn<T08VDO> getDadosVideo(@RequestParam("cd_item") final long cd_item)  {
@@ -76,7 +74,7 @@ public class VideoController {
 			throw new Exception("Video not found!");
 		} else {
 			T90IMG t90img = t90imgService.findByT05itm(t08vdo.getT05itm());
-			videoHelper.getImagemBancoDados(response, t90img.getBt_imagem());
+			imageHelper.getImagemBancoDados(response, t90img.getBt_imagem());
 		}
 	}
 	

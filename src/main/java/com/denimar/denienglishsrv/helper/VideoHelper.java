@@ -1,11 +1,8 @@
 package com.denimar.denienglishsrv.helper;
 
-import java.io.BufferedOutputStream;
 import java.io.IOException;
+
 import org.apache.commons.codec.binary.Base64;
-
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -24,18 +21,7 @@ public class VideoHelper {
 		t08vdo.setT05itm(t05itm);
 		t08vdo.setDs_url(ds_url);
 		t08vdoService.save(t08vdo);
-		
 		return t08vdo;
-	}
-	
-	public void getImagemBancoDados(HttpServletResponse response, byte[] bt_imagem) throws Exception {
-		BufferedOutputStream output = new BufferedOutputStream(response.getOutputStream());
-        try {
-        	output.write(bt_imagem);
-        	output.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 	}
 	
 	public byte[] getBytesFromUriImagem(String uriImagemBase64) throws IOException {
