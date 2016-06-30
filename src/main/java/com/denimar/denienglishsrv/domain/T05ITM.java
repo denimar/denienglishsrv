@@ -26,7 +26,7 @@ public class T05ITM implements java.io.Serializable {
 	@Id
 	@Column(name = "cd_item")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private long cd_item;
+	private long cdItem;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "cd_categoria", nullable = false)
@@ -46,12 +46,12 @@ public class T05ITM implements java.io.Serializable {
 	@Column(name = "dt_alteracao", nullable = false)
 	private Date dt_alteracao = new Date();
 
-	public long getCd_item() {
-		return cd_item;
+	public long getCdItem() {
+		return cdItem;
 	}
 
-	public void setCd_item(long cd_item) {
-		this.cd_item = cd_item;
+	public void setCdItem(long cdItem) {
+		this.cdItem = cdItem;
 	}
 
 	public String getDs_item() {
