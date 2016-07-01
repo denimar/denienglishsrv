@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -36,6 +38,8 @@ public class ItemController {
 	private T90IMGService t90imgService;
 	@Autowired
 	private ItemHelper itemHelper;
+	@Autowired
+	private ImageHelper imageHelper;
 	
 	@RequestMapping("/listall")
 	public RestDefaultReturn<T05ITM> getAllItems(@RequestParam("cd_tipo") final int cd_tipo) {
@@ -88,30 +92,41 @@ public class ItemController {
 		if (t05itm == null) {
 			return new RestDefaultReturn<T05ITM>(false, "Record not found!");
 		} else {
-			t05itm.setDs_item(ds_item);
-			t05itm.setDt_alteracao(new Date());		
+			t05itm.setDsItem(ds_item);
+			t05itm.setDtAlteracao(new Date());		
 			t05itmService.save(t05itm);
 			return new RestDefaultReturn<T05ITM>(true, t05itm);
 		}	
 	}	
 
-	@RequestMapping(value = "/upd-image", method = RequestMethod.POST)	
+	@RequestMapping(value = "/image/upd", method = RequestMethod.POST)	
 	public RestDefaultReturn<T05ITM> updImageItem(@RequestParam("cd_item") final long cd_item, final @RequestBody String bt_imagem_item) throws IOException  {
 		T05ITM t05itm = t05itmService.findOne(cd_item);
 		if (t05itm == null) {
 			return new RestDefaultReturn<T05ITM>(false, "Record not found!");
 		} else {
-			t05itm.setDt_alteracao(new Date());		
+			t05itm.setDtAlteracao(new Date());		
 			t05itmService.save(t05itm);
 			
 			//Edita a imagem da subcategoria
 			T90IMG t90img = t90imgService.findByT05itm(t05itm);
 			byte[] imagem = ImageHelper.getBytesFromUriImagem(bt_imagem_item);
-			t90img.setBt_imagem(imagem);
+			t90img.setBtImagem(imagem);
 			t90imgService.save(t90img);
 			
 			return new RestDefaultReturn<T05ITM>(true, t05itm);
 		}	
 	}	
+
+	@RequestMapping(value = "/image/get")
+	public void getImage(@RequestParam("cd_item") final long cd_item, HttpServletResponse response) throws Exception {
+		T05ITM t05itm = t05itmService.findOne(cd_item);
+		if (t05itm == null) {
+			throw new Exception("Item not found!");
+		} else {
+			T90IMG t90img = t90imgService.findByT05itm(t05itm);
+			imageHelper.getImagemBancoDados(response, t90img.getBtImagem());
+		}
+	}
 	
 }

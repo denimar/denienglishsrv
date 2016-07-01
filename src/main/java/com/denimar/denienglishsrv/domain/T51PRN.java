@@ -23,61 +23,60 @@ public class T51PRN implements java.io.Serializable {
 	@Id
 	@Column(name = "cd_pronuncia")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int cd_pronuncia;
+	private int cdPronuncia;
 	
 	@Column(name = "ds_expressao", nullable = false)
-	private String ds_expressao;
+	private String dsExpressao;
 	
 	@Column(name = "bl_aprendido", nullable = false)
-	private boolean bl_aprendido = false;
+	private boolean blAprendido = false;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "dt_inclusao", nullable = false)
-	private Date dt_inclusao = new Date();
+	private Date dtInclusao = new Date();
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "dt_alteracao", nullable = false)
-	private Date dt_alteracao = new Date();
+	private Date dtAlteracao = new Date();
+
+	public int getCdPronuncia() {
+		return cdPronuncia;
+	}
+
+	public void setCdPronuncia(int cdPronuncia) {
+		this.cdPronuncia = cdPronuncia;
+	}
+
+	public String getDsExpressao() {
+		return dsExpressao;
+	}
+
+	public void setDsExpressao(String dsExpressao) {
+		this.dsExpressao = dsExpressao;
+	}
+
+	public boolean isBlAprendido() {
+		return blAprendido;
+	}
+
+	public void setBlAprendido(boolean blAprendido) {
+		this.blAprendido = blAprendido;
+	}
+
+	public Date getDtInclusao() {
+		return dtInclusao;
+	}
+
+	public void setDtInclusao(Date dtInclusao) {
+		this.dtInclusao = dtInclusao;
+	}
+
+	public Date getDtAlteracao() {
+		return dtAlteracao;
+	}
+
+	public void setDtAlteracao(Date dtAlteracao) {
+		this.dtAlteracao = dtAlteracao;
+	}
 	
-	
-	public final int getCd_pronuncia() {
-		return cd_pronuncia;
-	}
-
-	public final void setCd_pronuncia(int cd_pronuncia) {
-		this.cd_pronuncia = cd_pronuncia;
-	}
-
-	public final String getDs_expressao() {
-		return ds_expressao;
-	}
-
-	public final void setDs_expressao(String ds_expressao) {
-		this.ds_expressao = ds_expressao;
-	}
-
-	public final boolean isBl_aprendido() {
-		return bl_aprendido;
-	}
-
-	public final void setBl_aprendido(boolean bl_aprendido) {
-		this.bl_aprendido = bl_aprendido;
-	}
-
-	public final Date getDt_inclusao() {
-		return dt_inclusao;
-	}
-
-	public final void setDt_inclusao(Date dt_inclusao) {
-		this.dt_inclusao = dt_inclusao;
-	}
-
-	public final Date getDt_alteracao() {
-		return dt_alteracao;
-	}
-
-	public final void setDt_alteracao(Date dt_alteracao) {
-		this.dt_alteracao = dt_alteracao;
-	}
-
 }

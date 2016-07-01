@@ -32,8 +32,8 @@ public class DictionaryController {
 	@RequestMapping(value = "/add", produces = MediaType.APPLICATION_JSON_VALUE)	
 	public RestDefaultReturn<T50DCI> addPronuncia(@RequestParam("ds_expressao") final String ds_expressao, @RequestParam("ds_tags") final String ds_tags)  {
 		T50DCI t50dci = new T50DCI();
-		t50dci.setDs_expressao(ds_expressao);
-		t50dci.setDs_tags(ds_tags);		
+		t50dci.setDsExpressao(ds_expressao);
+		t50dci.setDsTags(ds_tags);		
 		t50dciService.save(t50dci);
 		return new RestDefaultReturn<T50DCI>(true, t50dci);
 	}
@@ -55,7 +55,7 @@ public class DictionaryController {
 		if (t50dci == null) {
 			return new RestDefaultReturn<T50DCI>(false, "Record not found!");
 		} else {
-			t50dci.setBl_aprendido(!t50dci.isBl_aprendido());
+			t50dci.setBlAprendido(!t50dci.isBlAprendido());
 			t50dciService.save(t50dci);
 			return new RestDefaultReturn<T50DCI>(true, t50dci);
 		}	
@@ -72,7 +72,7 @@ public class DictionaryController {
 				t50def = new T50DEF();
 				t50def.setT50dci(t50dci);
 			}
-			t50def.setTx_definicao(dictionaryDefinition.getTx_definicao());
+			t50def.setTxDefinicao(dictionaryDefinition.getTx_definicao());
 			t50defService.save(t50def);
 			return new RestDefaultReturn<T50DEF>(true, t50def);
 		}	

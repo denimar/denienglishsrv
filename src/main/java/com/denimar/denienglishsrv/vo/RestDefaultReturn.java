@@ -10,29 +10,29 @@ public class RestDefaultReturn<T> implements java.io.Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	private boolean success = false;
-	private List<T> records;	
+	private List<T> data;	
 	private String message = "";
 	private int total = -1;
 	
-	public RestDefaultReturn(boolean success, List<T> records, String message, int total) {
+	public RestDefaultReturn(boolean success, List<T> data, String message, int total) {
 		this.success = success;
-		this.records = records;
+		this.data = data;
 		this.message = message;
 		this.total = total;
 	}
 	
-	public RestDefaultReturn(boolean success, List<T> records, String message) {
+	public RestDefaultReturn(boolean success, List<T> data, String message) {
 		this.success = success;
-		this.records = records;
+		this.data = data;
 		this.message = message;
-		this.total = records.size();
+		this.total = data.size();
 	}
 	
-	public RestDefaultReturn(boolean success, List<T> records) {
+	public RestDefaultReturn(boolean success, List<T> data) {
 		this.success = success;
-		this.records = records;
+		this.data = data;
 		this.message = "";
-		this.total = records.size();
+		this.total = data.size();
 	}
 	
 	public RestDefaultReturn(boolean success, T item) {
@@ -40,7 +40,7 @@ public class RestDefaultReturn<T> implements java.io.Serializable {
 		this.total = 1;
 		
 		if (item instanceof String) { //message
-			this.records = new ArrayList<T>();
+			this.data = new ArrayList<T>();
 			this.message = (String) item;
 		} else {
 			List<T> lista = new ArrayList<T>();			
@@ -49,21 +49,21 @@ public class RestDefaultReturn<T> implements java.io.Serializable {
 			} else {
 				lista.add(item);
 			}
-			this.records = lista;			
+			this.data = lista;			
 			this.message = "";
 		}
 	}
 
 	public RestDefaultReturn(boolean success, String message) {
 		this.success = success;
-		this.records = new ArrayList<T>();		
+		this.data = new ArrayList<T>();		
 		this.message = message;
 		this.total = 0;
 	}
 	
 	public RestDefaultReturn(boolean success) {
 		this.success = success;
-		this.records = new ArrayList<T>();		
+		this.data = new ArrayList<T>();		
 		this.message = "";
 		this.total = 0;
 	}
@@ -76,12 +76,12 @@ public class RestDefaultReturn<T> implements java.io.Serializable {
 		this.success = success;
 	}
 
-	public List<T> getRecords() {
-		return records;
+	public List<T> getData() {
+		return data;
 	}
 
-	public void setRecords(List<T> records) {
-		this.records = records;
+	public void setData(List<T> data) {
+		this.data = data;
 	}
 
 	public String getMessage() {

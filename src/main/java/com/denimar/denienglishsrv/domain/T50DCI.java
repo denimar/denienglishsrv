@@ -23,82 +23,81 @@ public class T50DCI implements java.io.Serializable {
 	@Id
 	@Column(name = "cd_dicionario")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int cd_dicionario;
+	private int cdDicionario;
 	
 	@Column(name = "ds_expressao", nullable = false)
-	private String ds_expressao;
+	private String dsExpressao;
 	
 	@Column(name = "ds_tags", length = 100)
-	private String ds_tags;
+	private String dsTags;
 	
 	@Column(name = "bl_aprendido", nullable = false)
-	private boolean bl_aprendido;
+	private boolean blAprendido;
 
 	@Column(name = "ds_expressoes")
-	private String ds_expressoes;
+	private String dsExpressoes;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "dt_inclusao", nullable = false)
-	private Date dt_inclusao = new Date();
+	private Date dtInclusao = new Date();
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "dt_alteracao", nullable = false)
-	private Date dt_alteracao = new Date();
+	private Date dtAlteracao = new Date();
 
-	public int getCd_dicionario() {
-		return cd_dicionario;
+	public int getCdDicionario() {
+		return cdDicionario;
 	}
 
-	public void setCd_dicionario(int cd_dicionario) {
-		this.cd_dicionario = cd_dicionario;
+	public void setCdDicionario(int cdDicionario) {
+		this.cdDicionario = cdDicionario;
 	}
 
-	public String getDs_expressao() {
-		return ds_expressao;
+	public String getDsExpressao() {
+		return dsExpressao;
 	}
 
-	public void setDs_expressao(String ds_expressao) {
-		this.ds_expressao = ds_expressao;
+	public void setDsExpressao(String dsExpressao) {
+		this.dsExpressao = dsExpressao;
 	}
 
-	public String getDs_tags() {
-		return ds_tags;
+	public String getDsTags() {
+		return dsTags;
 	}
 
-	public void setDs_tags(String ds_tags) {
-		this.ds_tags = ds_tags;
+	public void setDsTags(String dsTags) {
+		this.dsTags = dsTags;
 	}
 
-	public boolean isBl_aprendido() {
-		return bl_aprendido;
+	public boolean isBlAprendido() {
+		return blAprendido;
 	}
 
-	public void setBl_aprendido(boolean bl_aprendido) {
-		this.bl_aprendido = bl_aprendido;
+	public void setBlAprendido(boolean blAprendido) {
+		this.blAprendido = blAprendido;
 	}
 
-	public String getDs_expressoes() {
-		return ds_expressoes;
+	public String getDsExpressoes() {
+		return dsExpressoes;
 	}
 
-	public void setDs_expressoes(String ds_expressoes) {
-		this.ds_expressoes = ds_expressoes;
+	public void setDsExpressoes(String dsExpressoes) {
+		this.dsExpressoes = dsExpressoes;
 	}
 
-	public Date getDt_inclusao() {
-		return dt_inclusao;
+	public Date getDtInclusao() {
+		return dtInclusao;
 	}
 
-	public void setDt_inclusao(Date dt_inclusao) {
-		this.dt_inclusao = dt_inclusao;
+	public void setDtInclusao(Date dtInclusao) {
+		this.dtInclusao = dtInclusao;
 	}
 
-	public Date getDt_alteracao() {
-		return dt_alteracao;
+	public Date getDtAlteracao() {
+		return dtAlteracao;
 	}
 
-	public void setDt_alteracao(Date dt_alteracao) {
-		this.dt_alteracao = dt_alteracao;
+	public void setDtAlteracao(Date dtAlteracao) {
+		this.dtAlteracao = dtAlteracao;
 	}
-
 }

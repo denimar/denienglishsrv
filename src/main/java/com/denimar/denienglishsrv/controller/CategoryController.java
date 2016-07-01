@@ -51,7 +51,7 @@ public class CategoryController {
 			T02CTG t02ctg = new T02CTG();
 			t02ctg.setT01tpo(t01tpo);
 			t02ctg.setT02ctg(t02ctgService.findOne(cd_categoria_pai));
-			t02ctg.setDs_categoria(ds_categoria);
+			t02ctg.setDsCategoria(ds_categoria);
 			t02ctgService.save(t02ctg);
 			return new RestDefaultReturn<T02CTG>(true, t02ctg);
 		} catch (Exception e) {
@@ -79,8 +79,8 @@ public class CategoryController {
 			return new RestDefaultReturn<T02CTG>(false, "Record not found!");
 		} else {	
 			//Edita a categoria
-			t02ctg.setDs_categoria(ds_categoria);
-			t02ctg.setDh_alteracao(new Date());
+			t02ctg.setDsCategoria(ds_categoria);
+			t02ctg.setDhAlteracao(new Date());
 			t02ctgService.save(t02ctg);
 			
 			return new RestDefaultReturn<T02CTG>(true, t02ctg);

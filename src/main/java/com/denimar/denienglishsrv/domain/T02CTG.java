@@ -23,7 +23,7 @@ public class T02CTG implements java.io.Serializable {
 	@Id
 	@Column(name = "cd_categoria")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int cd_categoria;
+	private int cdCategoria;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "cd_categoria_pai")
@@ -34,35 +34,35 @@ public class T02CTG implements java.io.Serializable {
 	private T01TPO t01tpo;
 	
 	@Column(name = "ds_categoria", nullable = false, length = 40)
-	private String ds_categoria;
+	private String dsCategoria;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "dh_inclusao", nullable = false)	
-	private Date dh_inclusao = new Date();
+	private Date dhInclusao = new Date();
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "dh_alteracao", nullable = false)
-	private Date dh_alteracao = new Date();
+	private Date dhAlteracao = new Date();
 
 	public T02CTG() {
 	}
 
-	public T02CTG(int cd_categoria, T01TPO t01tpo, String ds_categoria, Date dh_inclusao, Date dh_alteracao) {
-		this.cd_categoria = cd_categoria;
+	public T02CTG(int cdCategoria, T01TPO t01tpo, String dsCategoria, Date dhInclusao, Date dhAlteracao) {
+		this.cdCategoria = cdCategoria;
 		this.t01tpo = t01tpo;
-		this.ds_categoria = ds_categoria;
-		this.dh_inclusao = dh_inclusao;
-		this.dh_alteracao = dh_alteracao;
+		this.dsCategoria = dsCategoria;
+		this.dhInclusao = dhInclusao;
+		this.dhAlteracao = dhAlteracao;
 	}
 
-	public int getCd_categoria() {
-		return cd_categoria;
+	public int getCdCategoria() {
+		return cdCategoria;
 	}
 
-	public void setCd_categoria(int cd_categoria) {
-		this.cd_categoria = cd_categoria;
+	public void setCdCategoria(int cdCategoria) {
+		this.cdCategoria = cdCategoria;
 	}
-	
+
 	public T02CTG getT02ctg() {
 		return t02ctg;
 	}
@@ -79,28 +79,29 @@ public class T02CTG implements java.io.Serializable {
 		this.t01tpo = t01tpo;
 	}
 
-	public String getDs_categoria() {
-		return ds_categoria;
+	public String getDsCategoria() {
+		return dsCategoria;
 	}
 
-	public void setDs_categoria(String ds_categoria) {
-		this.ds_categoria = ds_categoria;
+	public void setDsCategoria(String dsCategoria) {
+		this.dsCategoria = dsCategoria;
 	}
 
-	public Date getDh_inclusao() {
-		return dh_inclusao;
+	public Date getDhInclusao() {
+		return dhInclusao;
 	}
 
-	public void setDh_inclusao(Date dt_inclusao) {
-		this.dh_inclusao = dt_inclusao;
+	public void setDhInclusao(Date dhInclusao) {
+		this.dhInclusao = dhInclusao;
 	}
 
-	public Date getDh_alteracao() {
-		return dh_alteracao;
+	public Date getDhAlteracao() {
+		return dhAlteracao;
 	}
 
-	public void setDh_alteracao(Date dt_alteracao) {
-		this.dh_alteracao = dt_alteracao;
+	public void setDhAlteracao(Date dhAlteracao) {
+		this.dhAlteracao = dhAlteracao;
 	}
+
 
 }

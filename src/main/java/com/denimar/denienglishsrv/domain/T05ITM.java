@@ -33,18 +33,18 @@ public class T05ITM implements java.io.Serializable {
 	private T02CTG t02ctg;
 	
 	@Column(name = "ds_item", nullable = false)
-	private String ds_item;
+	private String dsItem;
 	
 	@Column(name = "bl_fazer_revisao", nullable = false)
 	private boolean blFazerRevisao;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "dt_inclusao", nullable = false)
-	private Date dt_inclusao = new Date();
+	private Date dtInclusao = new Date();
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "dt_alteracao", nullable = false)
-	private Date dt_alteracao = new Date();
+	private Date dtAlteracao = new Date();
 
 	public long getCdItem() {
 		return cdItem;
@@ -52,22 +52,6 @@ public class T05ITM implements java.io.Serializable {
 
 	public void setCdItem(long cdItem) {
 		this.cdItem = cdItem;
-	}
-
-	public String getDs_item() {
-		return ds_item;
-	}
-
-	public void setDs_item(String ds_item) {
-		this.ds_item = ds_item;
-	}
-
-	public boolean isBl_fazer_revisao() {
-		return blFazerRevisao;
-	}
-
-	public void setBl_fazer_revisao(boolean bl_fazer_revisao) {
-		this.blFazerRevisao = bl_fazer_revisao;
 	}
 
 	public T02CTG getT02ctg() {
@@ -78,20 +62,37 @@ public class T05ITM implements java.io.Serializable {
 		this.t02ctg = t02ctg;
 	}
 
-	public Date getDt_inclusao() {
-		return dt_inclusao;
+	public String getDsItem() {
+		return dsItem;
 	}
 
-	public void setDt_inclusao(Date dt_inclusao) {
-		this.dt_inclusao = dt_inclusao;
+	public void setDsItem(String dsItem) {
+		this.dsItem = dsItem;
 	}
 
-	public Date getDt_alteracao() {
-		return dt_alteracao;
+	public boolean isBlFazerRevisao() {
+		return blFazerRevisao;
 	}
 
-	public void setDt_alteracao(Date dt_alteracao) {
-		this.dt_alteracao = dt_alteracao;
+	public void setBlFazerRevisao(boolean blFazerRevisao) {
+		this.blFazerRevisao = blFazerRevisao;
 	}
+
+	public Date getDtInclusao() {
+		return dtInclusao;
+	}
+
+	public void setDtInclusao(Date dtInclusao) {
+		this.dtInclusao = dtInclusao;
+	}
+
+	public Date getDtAlteracao() {
+		return dtAlteracao;
+	}
+
+	public void setDtAlteracao(Date dtAlteracao) {
+		this.dtAlteracao = dtAlteracao;
+	}
+
 	
 }

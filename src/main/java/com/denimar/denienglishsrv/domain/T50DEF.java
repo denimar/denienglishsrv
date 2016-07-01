@@ -21,21 +21,21 @@ public class T50DEF {
 	@Id
 	@Column(name = "cd_dicionario_definicao")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int cd_definicao_dicionario;
+	private int cdDefinicaoDicionario;
 
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "cd_dicionario", nullable = false)
 	private T50DCI t50dci;
 	
 	@Column(name = "tx_definicao")
-	private String tx_definicao;
+	private String txDefinicao;
 
-	public int getCd_definicao_dicionario() {
-		return cd_definicao_dicionario;
+	public int getCdDefinicaoDicionario() {
+		return cdDefinicaoDicionario;
 	}
 
-	public void setCd_definicao_dicionario(int cd_definicao_dicionario) {
-		this.cd_definicao_dicionario = cd_definicao_dicionario;
+	public void setCdDefinicaoDicionario(int cdDefinicaoDicionario) {
+		this.cdDefinicaoDicionario = cdDefinicaoDicionario;
 	}
 
 	public T50DCI getT50dci() {
@@ -46,12 +46,13 @@ public class T50DEF {
 		this.t50dci = t50dci;
 	}
 
-	public String getTx_definicao() {
-		return tx_definicao;
+	public String getTxDefinicao() {
+		return txDefinicao;
 	}
 
-	public void setTx_definicao(String tx_definicao) {
-		this.tx_definicao = tx_definicao;
+	public void setTxDefinicao(String txDefinicao) {
+		this.txDefinicao = txDefinicao;
 	}
+
 
 }

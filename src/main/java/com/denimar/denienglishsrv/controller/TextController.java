@@ -51,7 +51,7 @@ public class TextController {
 		if (t07ctd == null) {
 			return new RestDefaultReturn<T07CTD>(false, "Text not found!");	
 		} else {
-			t07ctd.setTx_conteudo(tx_conteudo);
+			t07ctd.setTxConteudo(tx_conteudo);
 			t07ctdService.save(t07ctd);
 			return new RestDefaultReturn<T07CTD>(true, t07ctd);
 		}	

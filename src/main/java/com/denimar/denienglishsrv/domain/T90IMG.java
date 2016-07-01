@@ -23,7 +23,7 @@ public class T90IMG implements Serializable {
 	@Id
 	@Column(name = "cd_imagem")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int cd_imagem;
+	private int cdImagem;
 	
 	
 	@ManyToOne(fetch = FetchType.LAZY) 
@@ -39,29 +39,29 @@ public class T90IMG implements Serializable {
 	private T08VDO t08vdo;
 	
 	@Column(name = "bt_imagem")
-	private byte[] bt_imagem;
-	
-	public final int getCd_imagem() {
-		return cd_imagem;
+	private byte[] btImagem;
+
+	public int getCdImagem() {
+		return cdImagem;
 	}
 
-	public final void setCd_imagem(int cd_imagem) {
-		this.cd_imagem = cd_imagem;
+	public void setCdImagem(int cdImagem) {
+		this.cdImagem = cdImagem;
 	}
 
-	public final T01TPO getT01tpo() {
+	public T01TPO getT01tpo() {
 		return t01tpo;
 	}
 
-	public final void setT01tpo(T01TPO t01tpo) {
+	public void setT01tpo(T01TPO t01tpo) {
 		this.t01tpo = t01tpo;
 	}
 
-	public final T05ITM getT05itm() {
+	public T05ITM getT05itm() {
 		return t05itm;
 	}
 
-	public final void setT05itm(T05ITM t05itm) {
+	public void setT05itm(T05ITM t05itm) {
 		this.t05itm = t05itm;
 	}
 
@@ -72,13 +72,14 @@ public class T90IMG implements Serializable {
 	public void setT08vdo(T08VDO t08vdo) {
 		this.t08vdo = t08vdo;
 	}
-	
-	public final byte[] getBt_imagem() {
-		return bt_imagem;
+
+	public byte[] getBtImagem() {
+		return btImagem;
 	}
 
-	public final void setBt_imagem(byte[] bt_imagem) {
-		this.bt_imagem = bt_imagem;
+	public void setBtImagem(byte[] btImagem) {
+		this.btImagem = btImagem;
 	}
+	
 
 }

@@ -9,6 +9,6 @@ import com.denimar.denienglishsrv.domain.T05REV;
 
 public interface T05REVService extends JpaRepository<T05REV, Integer> {
 
-	List<T05REV> findByDhrevisaoLessThanAndT05itm_BlFazerRevisao(Date dh_revisao, boolean blFazerRevisao);
+	List<T05REV> findByDhRevisaoLessThanAndT05itm_BlFazerRevisao(Date dhRevisao, boolean blFazerRevisao);
 	
 }

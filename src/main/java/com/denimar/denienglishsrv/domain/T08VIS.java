@@ -27,94 +27,95 @@ public class T08VIS implements java.io.Serializable {
 	@Id
 	@Column(name = "cd_item_subtitle")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int cd_item_subtitle;
+	private int cdItemSubtitle;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "cd_video", nullable = false)
 	private T08VDO t08vdo;
 	
 	@Column(name = "nr_item_old")
-	private Integer nr_item_old;
+	private Integer nrItemOld;
 	
 	@Column(name = "nr_start", nullable = false, precision = 17, scale = 17)
-	private double nr_start;
+	private double nrStart;
 	
 	@Column(name = "nr_end", nullable = false, precision = 17, scale = 17)
-	private double nr_end;
+	private double nrEnd;
 	
 	@Column(name = "ds_texto", nullable = false)
-	private String ds_texto;
+	private String dsTexto;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "dt_inclusao", nullable = false)
-	private Date dt_inclusao = new Date();
+	private Date dtInclusao = new Date();
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "dt_alteracao", nullable = false)
-	private Date dt_alteracao = new Date();
+	private Date dtAlteracao = new Date();
 
-	public final int getCd_item_subtitle() {
-		return cd_item_subtitle;
+	public int getCdItemSubtitle() {
+		return cdItemSubtitle;
 	}
 
-	public final void setCd_item_subtitle(int cd_item_subtitle) {
-		this.cd_item_subtitle = cd_item_subtitle;
+	public void setCdItemSubtitle(int cdItemSubtitle) {
+		this.cdItemSubtitle = cdItemSubtitle;
 	}
 
-	public final T08VDO getT08vdo() {
+	public T08VDO getT08vdo() {
 		return t08vdo;
 	}
 
-	public final void setT08vdo(T08VDO t08vdo) {
+	public void setT08vdo(T08VDO t08vdo) {
 		this.t08vdo = t08vdo;
 	}
 
-	public final Integer getNr_item_old() {
-		return nr_item_old;
+	public Integer getNrItemOld() {
+		return nrItemOld;
 	}
 
-	public final void setNr_item_old(Integer nr_item_old) {
-		this.nr_item_old = nr_item_old;
+	public void setNrItemOld(Integer nrItemOld) {
+		this.nrItemOld = nrItemOld;
 	}
 
-	public final double getNr_start() {
-		return nr_start;
+	public double getNrStart() {
+		return nrStart;
 	}
 
-	public final void setNr_start(double nr_start) {
-		this.nr_start = nr_start;
+	public void setNrStart(double nrStart) {
+		this.nrStart = nrStart;
 	}
 
-	public final double getNr_end() {
-		return nr_end;
+	public double getNrEnd() {
+		return nrEnd;
 	}
 
-	public final void setNr_end(double nr_end) {
-		this.nr_end = nr_end;
+	public void setNrEnd(double nrEnd) {
+		this.nrEnd = nrEnd;
 	}
 
-	public final String getDs_texto() {
-		return ds_texto;
+	public String getDsTexto() {
+		return dsTexto;
 	}
 
-	public final void setDs_texto(String ds_texto) {
-		this.ds_texto = ds_texto;
+	public void setDsTexto(String dsTexto) {
+		this.dsTexto = dsTexto;
 	}
 
-	public final Date getDt_inclusao() {
-		return dt_inclusao;
+	public Date getDtInclusao() {
+		return dtInclusao;
 	}
 
-	public final void setDt_inclusao(Date dt_inclusao) {
-		this.dt_inclusao = dt_inclusao;
+	public void setDtInclusao(Date dtInclusao) {
+		this.dtInclusao = dtInclusao;
 	}
 
-	public final Date getDt_alteracao() {
-		return dt_alteracao;
+	public Date getDtAlteracao() {
+		return dtAlteracao;
 	}
 
-	public final void setDt_alteracao(Date dt_alteracao) {
-		this.dt_alteracao = dt_alteracao;
+	public void setDtAlteracao(Date dtAlteracao) {
+		this.dtAlteracao = dtAlteracao;
 	}
+
 	
 }

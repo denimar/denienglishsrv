@@ -32,76 +32,76 @@ public class T07TXT implements java.io.Serializable {
 	private T05ITM t05itm;
 	
 	@Column(name = "ds_titulo", nullable = false, length = 70)
-	private String ds_titulo;
+	private String dsTitulo;
 	
 	@Column(name = "nr_seq", nullable = false)
 	private short nrSeq;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "dt_inclusao", nullable = false)
-	private Date dt_inclusao;
+	private Date dtInclusao;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "dt_alteracao", nullable = false)
-	private Date dt_alteracao;
+	private Date dtAlteracao;
 	
 	@Column(name = "bl_fazer_revisao", nullable = false)
-	private boolean bl_fazer_revisao;
+	private boolean blFazerRevisao;
 
-	public final int getCdTexto() {
+	public int getCdTexto() {
 		return cdTexto;
 	}
 
-	public final void setCdTexto(int cdTexto) {
+	public void setCdTexto(int cdTexto) {
 		this.cdTexto = cdTexto;
 	}
 
-	public final T05ITM getT05itm() {
+	public T05ITM getT05itm() {
 		return t05itm;
 	}
 
-	public final void setT05itm(T05ITM t05itm) {
+	public void setT05itm(T05ITM t05itm) {
 		this.t05itm = t05itm;
 	}
 
-	public final String getDs_titulo() {
-		return ds_titulo;
+	public String getDsTitulo() {
+		return dsTitulo;
 	}
 
-	public final void setDs_titulo(String ds_titulo) {
-		this.ds_titulo = ds_titulo;
+	public void setDsTitulo(String dsTitulo) {
+		this.dsTitulo = dsTitulo;
 	}
 
-	public final short getNrSeq() {
+	public short getNrSeq() {
 		return nrSeq;
 	}
 
-	public final void setNrSeq(short nrSeq) {
+	public void setNrSeq(short nrSeq) {
 		this.nrSeq = nrSeq;
 	}
 
-	public final Date getDt_inclusao() {
-		return dt_inclusao;
+	public Date getDtInclusao() {
+		return dtInclusao;
 	}
 
-	public final void setDt_inclusao(Date dt_inclusao) {
-		this.dt_inclusao = dt_inclusao;
+	public void setDtInclusao(Date dtInclusao) {
+		this.dtInclusao = dtInclusao;
 	}
 
-	public final Date getDt_alteracao() {
-		return dt_alteracao;
+	public Date getDtAlteracao() {
+		return dtAlteracao;
 	}
 
-	public final void setDt_alteracao(Date dt_alteracao) {
-		this.dt_alteracao = dt_alteracao;
+	public void setDtAlteracao(Date dtAlteracao) {
+		this.dtAlteracao = dtAlteracao;
 	}
 
-	public final boolean isBl_fazer_revisao() {
-		return bl_fazer_revisao;
+	public boolean isBlFazerRevisao() {
+		return blFazerRevisao;
 	}
 
-	public final void setBl_fazer_revisao(boolean bl_fazer_revisao) {
-		this.bl_fazer_revisao = bl_fazer_revisao;
+	public void setBlFazerRevisao(boolean blFazerRevisao) {
+		this.blFazerRevisao = blFazerRevisao;
 	}
 
 }

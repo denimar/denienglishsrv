@@ -19,7 +19,7 @@ public class VideoHelper {
 	public T08VDO createVideo(T05ITM t05itm, String ds_url) {
 		T08VDO t08vdo = new T08VDO();
 		t08vdo.setT05itm(t05itm);
-		t08vdo.setDs_url(ds_url);
+		t08vdo.setDsUrl(ds_url);
 		t08vdoService.save(t08vdo);
 		return t08vdo;
 	}

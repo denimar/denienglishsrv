@@ -27,13 +27,13 @@ public class ItemHelper {
 		}	
 		T05ITM t05itm = new T05ITM();
 		t05itm.setT02ctg(t02ctg);
-		t05itm.setDs_item(ds_item);
+		t05itm.setDsItem(ds_item);
 		t05itmService.save(t05itm);
 		
 		//Edita a imagem da subcategoria
 		T90IMG t90img = new T90IMG();
 		byte[] imagem = ImageHelper.getBytesFromUriImagem(bt_imagem_item);
-		t90img.setBt_imagem(imagem);
+		t90img.setBtImagem(imagem);
 		t90img.setT05itm(t05itm);
 		t90imgService.save(t90img);
 		

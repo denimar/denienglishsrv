@@ -15,50 +15,50 @@ public class T01TPO implements java.io.Serializable {
 	@Id
 	@Column(name = "cd_tipo")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int cd_tipo;
+	private int cdTipo;
 	
 	@Column(name = "ds_tipo", unique = true, nullable = false, length = 40)
-	private String ds_tipo;
+	private String dsTipo;
 	
 	@Column(name = "ds_pagina_mostrar", length = 45)
-	private String ds_pagina_mostrar;
+	private String dsPaginaMostrar;
 
 	public T01TPO() {
 	}
 
-	public T01TPO(int cd_tipo, String ds_tipo) {
-		this.cd_tipo = cd_tipo;
-		this.ds_tipo = ds_tipo;
+	public T01TPO(int cdTipo, String dsTipo) {
+		this.cdTipo = cdTipo;
+		this.dsTipo = dsTipo;
 	}
 
-	public T01TPO(int cd_tipo, String dsTipo, String dsPaginaMostrar) {
-		this.cd_tipo = cd_tipo;
-		this.ds_tipo = dsTipo;
-		this.ds_pagina_mostrar = dsPaginaMostrar;
+	public T01TPO(int cdTipo, String dsTipo, String dsPaginaMostrar) {
+		this.cdTipo = cdTipo;
+		this.dsTipo = dsTipo;
+		this.dsPaginaMostrar = dsPaginaMostrar;
 	}
 
-	public int getCd_tipo() {
-		return cd_tipo;
+	public int getCdTipo() {
+		return cdTipo;
 	}
 
-	public void setCd_tipo(int cd_tipo) {
-		this.cd_tipo = cd_tipo;
+	public void setCdTipo(int cdTipo) {
+		this.cdTipo = cdTipo;
 	}
 
-	public String getDs_tipo() {
-		return ds_tipo;
+	public String getDsTipo() {
+		return dsTipo;
 	}
 
-	public void setDs_tipo(String ds_tipo) {
-		this.ds_tipo = ds_tipo;
+	public void setDsTipo(String dsTipo) {
+		this.dsTipo = dsTipo;
 	}
 
-	public String getDs_pagina_mostrar() {
-		return ds_pagina_mostrar;
+	public String getDsPaginaMostrar() {
+		return dsPaginaMostrar;
 	}
 
-	public void setDs_pagina_mostrar(String ds_pagina_mostrar) {
-		this.ds_pagina_mostrar = ds_pagina_mostrar;
+	public void setDsPaginaMostrar(String dsPaginaMostrar) {
+		this.dsPaginaMostrar = dsPaginaMostrar;
 	}
 
 }

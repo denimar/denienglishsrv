@@ -21,21 +21,21 @@ public class T07CTD {
 	@Id
 	@Column(name = "cd_texto_conteudo")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int cd_texto_conteudo;	
+	private int cdTextoConteudo;	
 	
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "cd_texto", nullable = false)
 	private T07TXT t07txt;
 	
 	@Column(name = "tx_conteudo")
-	private String tx_conteudo;
+	private String txConteudo;
 
-	public int getCd_texto_conteudo() {
-		return cd_texto_conteudo;
+	public int getCdTextoConteudo() {
+		return cdTextoConteudo;
 	}
 
-	public void setCd_texto_conteudo(int cd_texto_conteudo) {
-		this.cd_texto_conteudo = cd_texto_conteudo;
+	public void setCdTextoConteudo(int cdTextoConteudo) {
+		this.cdTextoConteudo = cdTextoConteudo;
 	}
 
 	public T07TXT getT07txt() {
@@ -46,12 +46,12 @@ public class T07CTD {
 		this.t07txt = t07txt;
 	}
 
-	public String getTx_conteudo() {
-		return tx_conteudo;
+	public String getTxConteudo() {
+		return txConteudo;
 	}
 
-	public void setTx_conteudo(String tx_conteudo) {
-		this.tx_conteudo = tx_conteudo;
+	public void setTxConteudo(String txConteudo) {
+		this.txConteudo = txConteudo;
 	}
 
 	

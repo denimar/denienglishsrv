@@ -25,49 +25,50 @@ public class T05REV implements java.io.Serializable {
 	@Id
 	@Column(name = "cd_revisao_item")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int cd_revisao_item;
+	private int cdRevisaoItem;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "cd_item", nullable = false)
 	private T05ITM t05itm;
 	
 	@Column(name = "cd_texto")
-	private Integer cd_texto;
+	private Integer cdTexto;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "dh_revisao", nullable = false)
-	private Date dhrevisao;
+	private Date dhRevisao;
 
-	public final int getCd_revisao_item() {
-		return cd_revisao_item;
+	public int getCdRevisaoItem() {
+		return cdRevisaoItem;
 	}
 
-	public final void setCd_revisao_item(int cd_revisao_item) {
-		this.cd_revisao_item = cd_revisao_item;
+	public void setCdRevisaoItem(int cdRevisaoItem) {
+		this.cdRevisaoItem = cdRevisaoItem;
 	}
 
-	public final T05ITM getT05itm() {
+	public T05ITM getT05itm() {
 		return t05itm;
 	}
 
-	public final void setT05itm(T05ITM t05itm) {
+	public void setT05itm(T05ITM t05itm) {
 		this.t05itm = t05itm;
 	}
 
-	public final Integer getCd_texto() {
-		return cd_texto;
+	public Integer getCdTexto() {
+		return cdTexto;
 	}
 
-	public final void setCd_texto(Integer cd_texto) {
-		this.cd_texto = cd_texto;
+	public void setCdTexto(Integer cdTexto) {
+		this.cdTexto = cdTexto;
 	}
 
-	public Date getDhrevisao() {
-		return dhrevisao;
+	public Date getDhRevisao() {
+		return dhRevisao;
 	}
 
-	public void setDhrevisao(Date dhrevisao) {
-		this.dhrevisao = dhrevisao;
+	public void setDhRevisao(Date dhRevisao) {
+		this.dhRevisao = dhRevisao;
 	}
+
 
 }

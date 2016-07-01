@@ -26,7 +26,7 @@ public class RevisionController {
 		Calendar cal = Calendar.getInstance();
 		cal.add(Calendar.DATE, numberOfDays * -1);        	
 
-		List<T05REV> list = t05revService.findByDhrevisaoLessThanAndT05itm_BlFazerRevisao(cal.getTime(), true);
+		List<T05REV> list = t05revService.findByDhRevisaoLessThanAndT05itm_BlFazerRevisao(cal.getTime(), true);
 		
 		return new RestDefaultReturn<T05REV>(true, list); 
 	}	

@@ -44,9 +44,9 @@ public class SubtitleController {
 		} else {
 			T08VIS t08vis = new T08VIS();
 			t08vis.setT08vdo(t08vdo);
-			t08vis.setNr_start(subtitleRequest.getNr_start());
-			t08vis.setNr_end(subtitleRequest.getNr_end());
-			t08vis.setDs_texto(subtitleRequest.getDs_texto());
+			t08vis.setNrStart(subtitleRequest.getNr_start());
+			t08vis.setNrEnd(subtitleRequest.getNr_end());
+			t08vis.setDsTexto(subtitleRequest.getDs_texto());
 			t08visService.save(t08vis);
 			return new RestDefaultReturn<T08VIS>(true, t08vis);
 		}	
@@ -69,10 +69,10 @@ public class SubtitleController {
 		if (t08vis == null) {
 			return new RestDefaultReturn<T08VIS>(false, "Record not found!");
 		} else {
-			t08vis.setNr_start(subtitleRequest.getNr_start());
-			t08vis.setNr_end(subtitleRequest.getNr_end());
-			t08vis.setDs_texto(subtitleRequest.getDs_texto());
-			t08vis.setDt_alteracao(new Date());
+			t08vis.setNrStart(subtitleRequest.getNr_start());
+			t08vis.setNrEnd(subtitleRequest.getNr_end());
+			t08vis.setDsTexto(subtitleRequest.getDs_texto());
+			t08vis.setDtAlteracao(new Date());
 			t08visService.save(t08vis);
 			return new RestDefaultReturn<T08VIS>(true, t08vis);
 		}	

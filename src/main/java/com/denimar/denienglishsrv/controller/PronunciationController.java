@@ -25,7 +25,7 @@ public class PronunciationController {
 	@RequestMapping(value = "/add", produces = MediaType.APPLICATION_JSON_VALUE)	
 	public RestDefaultReturn<T51PRN> addPronuncia(@RequestParam("ds_expressao") final String ds_expressao)  {
 		T51PRN t51prn = new T51PRN();
-		t51prn.setDs_expressao(ds_expressao);
+		t51prn.setDsExpressao(ds_expressao);
 		t51prnService.save(t51prn);
 		return new RestDefaultReturn<T51PRN>(true, t51prn);
 	}
@@ -47,7 +47,7 @@ public class PronunciationController {
 		if (t51prn == null) {
 			return new RestDefaultReturn<T51PRN>(false, "Record not found!");
 		} else {
-			t51prn.setBl_aprendido(!t51prn.isBl_aprendido());
+			t51prn.setBlAprendido(!t51prn.isBlAprendido());
 			t51prnService.save(t51prn);
 			return new RestDefaultReturn<T51PRN>(true, t51prn);
 		}	

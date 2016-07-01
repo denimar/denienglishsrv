@@ -61,7 +61,7 @@ public class VideoController {
 		if (t08vdo == null) {
 			return new RestDefaultReturn<T08VDO>(false, "Video not found!");
 		} else {
-			t08vdo.setTx_comentarios(tx_comentario);
+			t08vdo.setTxComentarios(tx_comentario);
 			t08vdoService.save(t08vdo);
 			return new RestDefaultReturn<T08VDO>(true, t08vdo);
 		}
@@ -74,7 +74,7 @@ public class VideoController {
 			throw new Exception("Video not found!");
 		} else {
 			T90IMG t90img = t90imgService.findByT05itm(t08vdo.getT05itm());
-			imageHelper.getImagemBancoDados(response, t90img.getBt_imagem());
+			imageHelper.getImagemBancoDados(response, t90img.getBtImagem());
 		}
 	}
 	
