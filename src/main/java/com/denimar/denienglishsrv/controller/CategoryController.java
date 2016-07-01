@@ -5,32 +5,43 @@ import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.denimar.denienglishsrv.domain.T01TPO;
 import com.denimar.denienglishsrv.domain.T02CTG;
+import com.denimar.denienglishsrv.dto.CategoryTreeListResponseDTO;
+import com.denimar.denienglishsrv.helper.CategoryHelper;
 import com.denimar.denienglishsrv.service.T01TPOService;
 import com.denimar.denienglishsrv.service.T02CTGService;
 import com.denimar.denienglishsrv.vo.RestDefaultReturn;
 
 @RestController
 @RequestMapping("/category")
+@CrossOrigin
 public class CategoryController {
 	
 	@Autowired
 	T01TPOService t01tpoService;
-
 	@Autowired
 	T02CTGService t02ctgService;
+	@Autowired
+	CategoryHelper categoryHelper; 
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)	
 	public RestDefaultReturn<T02CTG> listCategories(@RequestParam("cd_tipo") final int cd_tipo)  {
 		T01TPO t01tpo = new T01TPO(cd_tipo, "");
 		return new RestDefaultReturn<T02CTG>(true, t02ctgService.findByT01tpo(t01tpo));
-	}	
+	}
+	
+	@RequestMapping(value = "/category/tree/list", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)	
+	public @ResponseBody CategoryTreeListResponseDTO[] getCategoryTreeList()  {
+		return categoryHelper.getCategoryTreeList().getChildren();
+	}
 	
 	@RequestMapping(value = "/get", produces = MediaType.APPLICATION_JSON_VALUE)
 	public RestDefaultReturn<T02CTG> getCategoria(@RequestParam("cd_categoria") final int cd_categoria)  {

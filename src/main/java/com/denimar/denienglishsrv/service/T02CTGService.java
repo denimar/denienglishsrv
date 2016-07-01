@@ -11,5 +11,6 @@ import com.denimar.denienglishsrv.domain.T02CTG;
 public interface T02CTGService extends JpaRepository<T02CTG, Integer>, CrudRepository<T02CTG, Integer> {
 	
 	 public List<T02CTG> findByT01tpo(T01TPO t01tpo);
+	 public List<T02CTG> findByT02ctg(T02CTG t02ctg);
 	
 }
