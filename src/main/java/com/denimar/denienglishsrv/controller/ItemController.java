@@ -49,10 +49,10 @@ public class ItemController {
 	}
 	
 	@RequestMapping("/list")
-	public RestDefaultReturn<T05ITM> getItems(@RequestParam("cd_categoria") final int cd_categoria) {
+	public RestDefaultReturn<T05ITM> getItemsItemsByCategory(@RequestParam("cd_categoria") final int cd_categoria) {
 		T02CTG t02ctg = t02ctgService.findOne(cd_categoria);
-		List<T05ITM> lista = t05itmService.findByT02ctg(t02ctg);
-		return new RestDefaultReturn<T05ITM>(true, lista);
+		List<T05ITM> list = t05itmService.findByT02ctg(t02ctg);
+		return new RestDefaultReturn<T05ITM>(true, list);
 	}
 	
 	@RequestMapping(value = "/get")
