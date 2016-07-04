@@ -38,6 +38,9 @@ public class T05ITM implements java.io.Serializable {
 	@Column(name = "bl_fazer_revisao", nullable = false)
 	private boolean blFazerRevisao;
 
+	@Column(name = "bl_favorite", nullable = false)
+	private boolean blFavorite = false;
+	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "dt_inclusao", nullable = false)
 	private Date dtInclusao = new Date();
