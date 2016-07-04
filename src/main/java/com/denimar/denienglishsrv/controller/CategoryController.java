@@ -3,6 +3,8 @@ package com.denimar.denienglishsrv.controller;
 import java.io.IOException;
 import java.util.Date;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -16,8 +18,10 @@ import com.denimar.denienglishsrv.domain.T01TPO;
 import com.denimar.denienglishsrv.domain.T02CTG;
 import com.denimar.denienglishsrv.dto.CategoryTreeListResponseDTO;
 import com.denimar.denienglishsrv.helper.CategoryHelper;
+import com.denimar.denienglishsrv.helper.ImageHelper;
 import com.denimar.denienglishsrv.service.T01TPOService;
 import com.denimar.denienglishsrv.service.T02CTGService;
+import com.denimar.denienglishsrv.service.T90IMGService;
 import com.denimar.denienglishsrv.vo.RestDefaultReturn;
 
 @RestController
@@ -29,8 +33,12 @@ public class CategoryController {
 	T01TPOService t01tpoService;
 	@Autowired
 	T02CTGService t02ctgService;
+	@Autowired	 
+	private T90IMGService t90imgService;
 	@Autowired
 	CategoryHelper categoryHelper; 
+	@Autowired
+	private ImageHelper imageHelper;
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)	
 	public RestDefaultReturn<T02CTG> listCategories(@RequestParam("cd_tipo") final int cd_tipo)  {
@@ -98,5 +106,14 @@ public class CategoryController {
 		}	
 	}
 	
+	@RequestMapping(value = "/image/get")
+	public void getImage(@RequestParam("cd_categoria") final int cd_categoria, HttpServletResponse response) throws Exception {
+		T02CTG t02ctg = t02ctgService.findOne(cd_categoria);
+		if (t02ctg == null) {
+			throw new Exception("Category not found!");
+		} else {
+			imageHelper.getImagemBancoDados(response, categoryHelper.getImage(t02ctg));
+		}
+	}
 	
 }

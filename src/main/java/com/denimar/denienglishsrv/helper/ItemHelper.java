@@ -1,5 +1,8 @@
 package com.denimar.denienglishsrv.helper;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -38,6 +41,23 @@ public class ItemHelper {
 		t90imgService.save(t90img);
 		
 		return t05itm;
+	}
+	
+	public List<T05ITM> getItemsByCategory(final T02CTG category) {
+		return getItemsByCategory(category, true);
+	}
+	
+	public List<T05ITM> getItemsByCategory(final T02CTG category, final boolean deep) {
+		List<T05ITM> list = new ArrayList<T05ITM>();
+		
+		list.addAll(t05itmService.findByT02ctg(category));  
+		List<T02CTG> children = t02ctgService.findByT02ctg(category);
+		
+		for (T02CTG child : children) {
+			list.addAll(getItemsByCategory(child, false));
+		}
+			
+		return list;
 	}
 
 }

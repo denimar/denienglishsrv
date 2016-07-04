@@ -38,6 +38,10 @@ public class T90IMG implements Serializable {
 	@JoinColumn(name = "cd_video")
 	private T08VDO t08vdo;
 	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "cd_categoria")
+	private T02CTG t02ctg;
+	
 	@Column(name = "bt_imagem")
 	private byte[] btImagem;
 
@@ -79,6 +83,14 @@ public class T90IMG implements Serializable {
 
 	public void setBtImagem(byte[] btImagem) {
 		this.btImagem = btImagem;
+	}
+
+	public T02CTG getT02ctg() {
+		return t02ctg;
+	}
+
+	public void setT02ctg(T02CTG t02ctg) {
+		this.t02ctg = t02ctg;
 	}
 	
 

@@ -2,7 +2,6 @@ package com.denimar.denienglishsrv.controller;
 
 import java.io.IOException;
 import java.util.Date;
-import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -51,8 +50,11 @@ public class ItemController {
 	@RequestMapping("/list")
 	public RestDefaultReturn<T05ITM> getItemsItemsByCategory(@RequestParam("cd_categoria") final int cd_categoria) {
 		T02CTG t02ctg = t02ctgService.findOne(cd_categoria);
-		List<T05ITM> list = t05itmService.findByT02ctg(t02ctg);
-		return new RestDefaultReturn<T05ITM>(true, list);
+		if (t02ctg == null) {
+			return new RestDefaultReturn<T05ITM>(false, "Category not found!");			
+		} else {
+			return new RestDefaultReturn<T05ITM>(true, itemHelper.getItemsByCategory(t02ctg));
+		}	
 	}
 	
 	@RequestMapping(value = "/get")

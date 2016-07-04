@@ -28,7 +28,7 @@ public class T05ITM implements java.io.Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long cdItem;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "cd_categoria", nullable = false)
 	private T02CTG t02ctg;
 	

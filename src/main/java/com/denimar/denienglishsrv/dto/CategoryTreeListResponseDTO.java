@@ -4,6 +4,7 @@ public class CategoryTreeListResponseDTO {
 	
 	private int id;
 	private String text;
+	private String icon;
 	private CategoryTreeListResponseDTO[] children;
 	
 	public int getId() {
@@ -17,6 +18,12 @@ public class CategoryTreeListResponseDTO {
 	}
 	public void setText(String text) {
 		this.text = text;
+	}
+	public String getIcon() {
+		return icon;
+	}
+	public void setIcon(String icon) {
+		this.icon = icon;
 	}
 	public CategoryTreeListResponseDTO[] getChildren() {
 		return children;
