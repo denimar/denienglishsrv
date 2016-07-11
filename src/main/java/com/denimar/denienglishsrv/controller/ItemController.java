@@ -17,6 +17,7 @@ import com.denimar.denienglishsrv.domain.T01TPO;
 import com.denimar.denienglishsrv.domain.T02CTG;
 import com.denimar.denienglishsrv.domain.T05ITM;
 import com.denimar.denienglishsrv.domain.T90IMG;
+import com.denimar.denienglishsrv.dto.ImageRequestDTO;
 import com.denimar.denienglishsrv.helper.ImageHelper;
 import com.denimar.denienglishsrv.helper.ItemHelper;
 import com.denimar.denienglishsrv.service.T02CTGService;
@@ -40,13 +41,6 @@ public class ItemController {
 	@Autowired
 	private ImageHelper imageHelper;
 	
-	@RequestMapping("/listall")
-	public RestDefaultReturn<T05ITM> getAllItems(@RequestParam("cd_tipo") final int cd_tipo) {
-		T01TPO t01tpo = new T01TPO(cd_tipo, "");
-		return new RestDefaultReturn<T05ITM>(true, t05itmService.findByT02ctg_T01tpo(t01tpo));
-		
-	}
-	
 	@RequestMapping("/list")
 	public RestDefaultReturn<T05ITM> getItemsItemsByCategory(@RequestParam("cd_categoria") final int cd_categoria) {
 		T02CTG t02ctg = t02ctgService.findOne(cd_categoria);
@@ -68,9 +62,9 @@ public class ItemController {
 	}
 	
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
-	public RestDefaultReturn<T05ITM> addItem(@RequestParam("cd_categoria") final int cd_categoria, @RequestParam("ds_item") final String ds_item, final @RequestBody String bt_imagem_item) throws IOException  {
+	public RestDefaultReturn<T05ITM> addItem(@RequestParam("cd_categoria") final int cd_categoria, @RequestParam("ds_item") final String ds_item, final @RequestBody ImageRequestDTO imageRequestDTO) throws IOException  {
 		try {
-			T05ITM t05itm = itemHelper.createItem(cd_categoria, ds_item, bt_imagem_item);
+			T05ITM t05itm = itemHelper.createItem(cd_categoria, ds_item, imageRequestDTO.getBt_imagem());
 			return new RestDefaultReturn<T05ITM>(true, t05itm);
 		} catch (Exception e) {
 			return new RestDefaultReturn<T05ITM>(false, e.getMessage());			
@@ -87,6 +81,16 @@ public class ItemController {
 			return new RestDefaultReturn<T05ITM>(true, t05itm);			
 		}
 	}
+
+	@RequestMapping(value = "/upd", method = RequestMethod.POST)	
+	public RestDefaultReturn<T05ITM> updItem(@RequestParam("cd_item") final long cd_item, @RequestParam("cd_categoria") final int cd_categoria, final String ds_item, final @RequestBody ImageRequestDTO imageRequestDTO) throws IOException  {
+		try {
+			T05ITM t05itm = itemHelper.updateItem(cd_item, cd_categoria, ds_item, imageRequestDTO.getBt_imagem());
+			return new RestDefaultReturn<T05ITM>(true, t05itm);
+		} catch (Exception e) {
+			return new RestDefaultReturn<T05ITM>(false, e.getMessage());			
+		}	
+	}	
 	
 	@RequestMapping(value = "/rename", method = RequestMethod.POST)	
 	public RestDefaultReturn<T05ITM> renameItem(@RequestParam("cd_item") final long cd_item, final String ds_item) throws IOException  {
