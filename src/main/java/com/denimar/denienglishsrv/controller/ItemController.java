@@ -125,7 +125,7 @@ public class ItemController {
 	}	
 
 	@RequestMapping(value = "/image/get")
-	public void getImage(@RequestParam("cd_item") final long cd_item, HttpServletResponse response) throws Exception {
+	public void getImage(@RequestParam("cd_item") final long cd_item, @RequestParam("time") final String time, HttpServletResponse response) throws Exception {
 		T05ITM t05itm = t05itmService.findOne(cd_item);
 		if (t05itm == null) {
 			throw new Exception("Item not found!");
