@@ -2,6 +2,7 @@ package com.denimar.denienglishsrv.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,6 +18,7 @@ import com.denimar.denienglishsrv.vo.RestDefaultReturn;
 
 @RestController
 @RequestMapping("/dictionary")
+@CrossOrigin
 public class DictionaryController {
 	
 	@Autowired	 
@@ -49,7 +51,7 @@ public class DictionaryController {
 		}	
 	}	
 	
-	@RequestMapping(value = "/aprendido/toogle", produces = MediaType.APPLICATION_JSON_VALUE)	
+	@RequestMapping(value = "/learned/toogle", produces = MediaType.APPLICATION_JSON_VALUE)	
 	public RestDefaultReturn<T50DCI> setAprendidoPronuncia(@RequestParam("cd_dicionario") final int cd_dicionario)  {
 		T50DCI t50dci = t50dciService.findOne(cd_dicionario);
 		if (t50dci == null) {
@@ -61,7 +63,7 @@ public class DictionaryController {
 		}	
 	}	
 	
-	@RequestMapping(value = "/definicao/set", method = {RequestMethod.POST}, produces = MediaType.APPLICATION_JSON_VALUE)	
+	@RequestMapping(value = "/definition/set", method = {RequestMethod.POST}, produces = MediaType.APPLICATION_JSON_VALUE)	
 	public RestDefaultReturn<T50DEF> setDefinicaoDicionario(@RequestBody DictionaryDefinitionRequestDTO dictionaryDefinition)  {
 		T50DCI t50dci = t50dciService.findOne(dictionaryDefinition.getCd_dicionario());
 		if (t50dci == null) {
@@ -78,7 +80,7 @@ public class DictionaryController {
 		}	
 	}
 	
-	@RequestMapping(value = "/definicao/get", produces = MediaType.APPLICATION_JSON_VALUE)	
+	@RequestMapping(value = "/definition/get", produces = MediaType.APPLICATION_JSON_VALUE)	
 	public RestDefaultReturn<T50DEF> getDefinicaoDicionario(@RequestParam("cd_dicionario") final int cd_dicionario)  {
 		T50DCI t50dci = t50dciService.findOne(cd_dicionario);
 		if (t50dci == null) {

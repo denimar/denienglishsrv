@@ -2,6 +2,7 @@ package com.denimar.denienglishsrv.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,6 +13,7 @@ import com.denimar.denienglishsrv.vo.RestDefaultReturn;
 
 @RestController
 @RequestMapping("/pronunciation")
+@CrossOrigin
 public class PronunciationController {
 
 	@Autowired	 
@@ -41,7 +43,7 @@ public class PronunciationController {
 		}	
 	}	
 	
-	@RequestMapping(value = "/aprendido/toogle", produces = MediaType.APPLICATION_JSON_VALUE)	
+	@RequestMapping(value = "/learned/toogle", produces = MediaType.APPLICATION_JSON_VALUE)	
 	public RestDefaultReturn<T51PRN> setAprendidoPronuncia(@RequestParam("cd_pronuncia") final int cd_pronuncia)  {
 		T51PRN t51prn = t51prnService.findOne(cd_pronuncia);
 		if (t51prn == null) {
