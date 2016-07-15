@@ -25,9 +25,9 @@ import com.denimar.denienglishsrv.service.T05ITMService;
 import com.denimar.denienglishsrv.service.T90IMGService;
 import com.denimar.denienglishsrv.vo.RestDefaultReturn;
 
-@CrossOrigin
 @RestController
 @RequestMapping("/item")
+@CrossOrigin
 public class ItemController {
 	
 	@Autowired	 
