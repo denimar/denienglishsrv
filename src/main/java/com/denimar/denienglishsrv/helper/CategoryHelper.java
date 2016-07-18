@@ -80,5 +80,18 @@ public class CategoryHelper {
 		return children;		
 	}
 	
+	public String getBreadCrumbPath(T02CTG category) {
+		String breadCrumbPath = category.getDsCategoria();  
+		
+		T02CTG categoryParent = category.getT02ctg();
+		while (categoryParent != null) {
+			breadCrumbPath = categoryParent.getDsCategoria() + " \\ " + breadCrumbPath;
+			categoryParent = categoryParent.getT02ctg();
+		}
+		
+		return breadCrumbPath;
+		
+	}
+	
 	
 }

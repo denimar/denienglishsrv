@@ -25,7 +25,7 @@ public class T02CTG implements java.io.Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int cdCategoria;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "cd_categoria_pai")
 	private T02CTG t02ctg;
 	
