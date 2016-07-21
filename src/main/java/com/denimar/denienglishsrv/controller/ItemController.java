@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.denimar.denienglishsrv.domain.T01TPO;
 import com.denimar.denienglishsrv.domain.T02CTG;
 import com.denimar.denienglishsrv.domain.T05ITM;
 import com.denimar.denienglishsrv.domain.T90IMG;
@@ -42,7 +41,7 @@ public class ItemController {
 	private ImageHelper imageHelper;
 	
 	@RequestMapping("/list")
-	public RestDefaultReturn<T05ITM> getItemsItemsByCategory(@RequestParam("cd_categoria") final int cd_categoria) {
+	public RestDefaultReturn<T05ITM> getItemsByCategory(@RequestParam("cd_categoria") final int cd_categoria) {
 		T02CTG t02ctg = t02ctgService.findOne(cd_categoria);
 		if (t02ctg == null) {
 			return new RestDefaultReturn<T05ITM>(false, "Category not found!");			
@@ -50,12 +49,34 @@ public class ItemController {
 			return new RestDefaultReturn<T05ITM>(true, itemHelper.getItemsByCategory(t02ctg));
 		}	
 	}
-	
+
+	@RequestMapping(value = "/favorite/get")
+	public RestDefaultReturn<T05ITM> getFavoritesItemsByCategory(@RequestParam("cd_categoria") final int cd_categoria) {
+		T02CTG t02ctg = t02ctgService.findOne(cd_categoria);
+		if (t02ctg == null) {
+			return new RestDefaultReturn<T05ITM>(false, "Category not found!");			
+		} else {
+			return new RestDefaultReturn<T05ITM>(true, itemHelper.getItemsByCategory(t02ctg, true, true));
+		}	
+	}
+
+	@RequestMapping(value = "/favorite/set")
+	public RestDefaultReturn<T05ITM> setItemFavorite(@RequestParam("cd_item") final long cd_item, @RequestParam("bl_favorite") boolean bl_favorite) {
+		T05ITM t05itm = t05itmService.findOne(cd_item);
+		if (t05itm == null) {
+			return new RestDefaultReturn<T05ITM>(false, "Item not found!");			
+		} else {
+			t05itm.setBlFavorite(bl_favorite);
+			t05itmService.save(t05itm);			
+			return new RestDefaultReturn<T05ITM>(true, t05itm);
+		}	
+	}
+
 	@RequestMapping(value = "/get")
 	public RestDefaultReturn<T05ITM> getItem(@RequestParam("cd_item") final long cd_item)  {
 		T05ITM t05itm = t05itmService.findOne(cd_item);
 		if (t05itm == null) {
-			return new RestDefaultReturn<T05ITM>(false, "Record not found!");			
+			return new RestDefaultReturn<T05ITM>(false, "Item not found!");			
 		} else {
 			return new RestDefaultReturn<T05ITM>(true, t05itmService.findOne(cd_item));
 		}	

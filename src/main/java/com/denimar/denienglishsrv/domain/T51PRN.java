@@ -31,6 +31,17 @@ public class T51PRN implements java.io.Serializable {
 	@Column(name = "bl_aprendido", nullable = false)
 	private boolean blAprendido = false;
 
+	@Column(name = "nr_level_of_learning")
+	private int nrLevelOfLearning;
+	
+	public int getNrLevelOfLearning() {
+		return nrLevelOfLearning;
+	}
+
+	public void setNrLevelOfLearning(int nrLevelOfLearning) {
+		this.nrLevelOfLearning = nrLevelOfLearning;
+	}
+	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "dt_inclusao", nullable = false)
 	private Date dtInclusao = new Date();

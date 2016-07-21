@@ -1,5 +1,6 @@
 package com.denimar.denienglishsrv.helper;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -89,8 +90,20 @@ public class CategoryHelper {
 			categoryParent = categoryParent.getT02ctg();
 		}
 		
-		return breadCrumbPath;
+		return breadCrumbPath;		
+	}
+	
+	public List<T02CTG> getAllCategoryChildren(T02CTG t02ctg) {
+		List<T02CTG> list = new ArrayList<T02CTG>();
+		list.add(t02ctg);
 		
+		
+		List<T02CTG> children = t02ctgService.findByT02ctg(t02ctg);
+		for (T02CTG child : children) {
+			list.addAll(getAllCategoryChildren(child));
+		}
+		
+		return list;
 	}
 	
 	

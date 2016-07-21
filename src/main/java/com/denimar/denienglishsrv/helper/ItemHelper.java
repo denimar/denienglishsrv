@@ -73,19 +73,27 @@ public class ItemHelper {
 		}	
 	}
 	
-	
 	public List<T05ITM> getItemsByCategory(final T02CTG category) {
-		return getItemsByCategory(category, true);
+		return getItemsByCategory(category, true, false);
 	}
 	
-	public List<T05ITM> getItemsByCategory(final T02CTG category, final boolean deep) {
+	public List<T05ITM> getItemsByCategory(final T02CTG category, boolean onlyFavorites) {
+		return getItemsByCategory(category, true, onlyFavorites);
+	}
+	
+	public List<T05ITM> getItemsByCategory(final T02CTG category, final boolean deep, final boolean onlyFavorites) {
 		List<T05ITM> list = new ArrayList<T05ITM>();
 		
-		list.addAll(t05itmService.findByT02ctgOrderByDsItemAsc(category));  
+		if (onlyFavorites) {
+			list.addAll(t05itmService.findByT02ctgAndBlFavoriteOrderByDsItemAsc(category, onlyFavorites));			
+		} else {	
+			list.addAll(t05itmService.findByT02ctgOrderByDsItemAsc(category));
+		}
+		
 		List<T02CTG> children = t02ctgService.findByT02ctg(category);
 		
 		for (T02CTG child : children) {
-			list.addAll(getItemsByCategory(child, false));
+			list.addAll(getItemsByCategory(child, false, onlyFavorites));
 		}
 			
 		return list;
