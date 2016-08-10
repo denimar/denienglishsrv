@@ -42,9 +42,13 @@ public class T05ITM implements java.io.Serializable {
 	private boolean blFavorite = false;
 	
 	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "dt_last_revision")
+	private Date dtLastRevision;
+	
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "dt_inclusao", nullable = false)
 	private Date dtInclusao = new Date();
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "dt_alteracao", nullable = false)
 	private Date dtAlteracao = new Date();
@@ -89,6 +93,14 @@ public class T05ITM implements java.io.Serializable {
 		this.blFavorite = blFavorite;
 	}
 
+	public Date getDtLastRevision() {
+		return dtLastRevision;
+	}
+
+	public void setDtLastRevision(Date dtLastRevision) {
+		this.dtLastRevision = dtLastRevision;
+	}
+	
 	public Date getDtInclusao() {
 		return dtInclusao;
 	}

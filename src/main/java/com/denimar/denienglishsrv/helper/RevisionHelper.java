@@ -18,6 +18,7 @@ import com.denimar.denienglishsrv.domain.T08VIS;
 import com.denimar.denienglishsrv.domain.T50DCI;
 import com.denimar.denienglishsrv.domain.T51PRN;
 import com.denimar.denienglishsrv.dto.ExpressionResponseDTO;
+import com.denimar.denienglishsrv.service.T05ITMService;
 import com.denimar.denienglishsrv.service.T05REVService;
 import com.denimar.denienglishsrv.service.T07CTDService;
 import com.denimar.denienglishsrv.service.T07TXTService;
@@ -29,6 +30,8 @@ import com.denimar.denienglishsrv.service.T51PRNService;
 @Component
 public class RevisionHelper {
 
+	@Autowired	 
+	private T05ITMService t05itmService;
 	@Autowired	 
 	private T05REVService t05revService;
 	@Autowired
@@ -107,21 +110,26 @@ public class RevisionHelper {
 		List<T02CTG> t02ctgList = categoryHelper.getAllCategoryChildren(t02ctg);
 		
 		Calendar cal = Calendar.getInstance();
-		cal.add(Calendar.DATE, 7 * -1);        	
+		cal.add(Calendar.DATE, -7);        	
 		
 		List<T05ITM> t05itmList = new ArrayList<T05ITM>();		
 		
 		for (T02CTG category : t02ctgList) {
-			List<T05REV> t05revList = t05revService.findByDhRevisaoLessThanAndT05itm_BlFazerRevisaoAndT05itm_T02ctg(cal.getTime(), true, category);
-			
-			for (T05REV t05rev : t05revList) {
-				if (t05itmList.indexOf(t05rev.getT05itm()) == -1) {
-					t05itmList.add(t05rev.getT05itm());				
-				}
-			}
+			t05itmList.addAll(t05itmService.findByT02ctgAndBlFazerRevisaoAndDtLastRevisionLessThan(category, true, cal.getTime()));
 		}
 		
 		return t05itmList;
+	}
+	
+	public T05ITM markItemAsReviewed(T05ITM t05itm) {
+		T05REV t05rev = new T05REV();
+		t05rev.setT05itm(t05itm);
+		t05revService.save(t05rev);
+		
+		t05itm.setDtLastRevision(t05rev.getDhRevisao());
+		t05itmService.save(t05itm);
+		
+		return t05itm;
 	}
 	
 

@@ -67,9 +67,9 @@ public class CategoryHelper {
 			
 			if (parentCategory == null) {
 				if (t02ctg.getDsCategoria().equalsIgnoreCase("Videos")) {
-					iconItemTreeview = "assets/images/24x24/folder_movie.png";
+					iconItemTreeview = "src/assets/images/24x24/folder_movie.png";
 				} else  if (t02ctg.getDsCategoria().equalsIgnoreCase("Texts")) {
-					iconItemTreeview = "assets/images/24x24/folder_text.png";					
+					iconItemTreeview = "src/assets/images/24x24/folder_text.png";					
 				}
 			}
 			

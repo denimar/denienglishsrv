@@ -1,7 +1,5 @@
 package com.denimar.denienglishsrv.controller;
 
-import java.util.Calendar;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -20,7 +18,6 @@ import com.denimar.denienglishsrv.helper.CategoryHelper;
 import com.denimar.denienglishsrv.helper.RevisionHelper;
 import com.denimar.denienglishsrv.service.T02CTGService;
 import com.denimar.denienglishsrv.service.T05ITMService;
-import com.denimar.denienglishsrv.service.T05REVService;
 import com.denimar.denienglishsrv.service.T50DCIService;
 import com.denimar.denienglishsrv.service.T51PRNService;
 import com.denimar.denienglishsrv.vo.RestDefaultReturn;
@@ -30,8 +27,6 @@ import com.denimar.denienglishsrv.vo.RestDefaultReturn;
 @CrossOrigin
 public class RevisionController {
 	
-	@Autowired	 
-	private T05REVService t05revService;
 	@Autowired	 
 	private T05ITMService t05itmService;
 	@Autowired	 
@@ -45,17 +40,6 @@ public class RevisionController {
 	@Autowired
 	private RevisionHelper revisionHelper;
 	
-	/*
-	@RequestMapping(value = "/list", produces = MediaType.APPLICATION_JSON_VALUE)	
-	public RestDefaultReturn<T05REV> getItemsRevisar(@RequestParam("pendente") final boolean pendente, @RequestParam("days") final int numberOfDays) throws ParseException  {
-		Calendar cal = Calendar.getInstance();
-		cal.add(Calendar.DATE, numberOfDays * -1);        	
-
-		List<T05REV> list = t05revService.findByDhRevisaoLessThanAndT05itm_BlFazerRevisao(cal.getTime(), true);
-		
-		return new RestDefaultReturn<T05REV>(true, list); 
-	}
-	*/
 	@RequestMapping(value = "/list", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public RestDefaultReturn<T05ITM> getItemsRevisar(@RequestParam("cd_categoria") int cdCategoria, @RequestParam("days") int days, @RequestParam("pendente") boolean pendente)  {
 		//Category was informed?			
@@ -67,6 +51,16 @@ public class RevisionController {
 		} 
 	}
 
+	@RequestMapping(value = "/markasreviewed", produces = MediaType.APPLICATION_JSON_VALUE )
+	public RestDefaultReturn<T05ITM> markAsRevied(@RequestParam("cd_item") long cdItem) {
+		T05ITM t05itm = t05itmService.findOneFetchingT02ctg(cdItem);
+		if (t05itm == null) {
+			return new RestDefaultReturn<T05ITM>(false, "Item not found!");			
+		} else {
+			return new RestDefaultReturn<T05ITM>(true, revisionHelper.markItemAsReviewed(t05itm));
+		}
+	}
+	
 	@RequestMapping(value = "/item/info", produces = MediaType.APPLICATION_JSON_VALUE )
 	public RestDefaultReturn<ItemRevisionInfoResponseDTO> getItemRevisionInfo(@RequestParam("cd_item") long cdItem) {
 		T05ITM t05itm = t05itmService.findOneFetchingT02ctg(cdItem);

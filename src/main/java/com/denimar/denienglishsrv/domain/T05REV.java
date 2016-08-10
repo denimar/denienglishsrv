@@ -36,7 +36,7 @@ public class T05REV implements java.io.Serializable {
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "dh_revisao", nullable = false)
-	private Date dhRevisao;
+	private Date dhRevisao = new Date();
 
 	public int getCdRevisaoItem() {
 		return cdRevisaoItem;

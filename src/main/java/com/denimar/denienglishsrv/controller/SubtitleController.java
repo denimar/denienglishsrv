@@ -7,6 +7,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -35,10 +36,10 @@ public class SubtitleController {
 	@RequestMapping(value = "/list", produces = MediaType.APPLICATION_JSON_VALUE)
 	public RestDefaultReturn<T08VIS> getSubtitles(@RequestParam("cd_item") final long cd_item)  {
 		T05ITM t05itm = t05itmService.findOne(cd_item);
-		return new RestDefaultReturn<T08VIS>(true, t08visService.findByT08vdo_t05itm(t05itm));
+		return new RestDefaultReturn<T08VIS>(true, t08visService.findByT08vdo_t05itmOrderByNrStart(t05itm));
 	}
 	
-	@RequestMapping(value = "/add", produces = MediaType.APPLICATION_JSON_VALUE)	
+	@RequestMapping(value = "/add", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)	
 	public RestDefaultReturn<T08VIS> addSubtitle(@RequestBody final SubtitleRequestDTO subtitleRequest)  {
 		T08VDO t08vdo = t08vdoService.findOne(subtitleRequest.getCd_video());
 		if (t08vdo == null) {
@@ -65,7 +66,7 @@ public class SubtitleController {
 		}	
 	}
 
-	@RequestMapping(value = "/upd", produces = MediaType.APPLICATION_JSON_VALUE)	
+	@RequestMapping(value = "/upd", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)	
 	public RestDefaultReturn<T08VIS> updSubtitle(@RequestBody final SubtitleRequestDTO subtitleRequest)  {
 		T08VIS t08vis = t08visService.findOne(subtitleRequest.getCd_item_subtitle());
 		if (t08vis == null) {

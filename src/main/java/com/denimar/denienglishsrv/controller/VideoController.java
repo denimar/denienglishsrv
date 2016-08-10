@@ -16,6 +16,7 @@ import com.denimar.denienglishsrv.domain.T05ITM;
 import com.denimar.denienglishsrv.domain.T08VDO;
 import com.denimar.denienglishsrv.domain.T90IMG;
 import com.denimar.denienglishsrv.dto.CreateVideoRequestDTO;
+import com.denimar.denienglishsrv.dto.VideoCommentariesRequestDTO;
 import com.denimar.denienglishsrv.helper.ImageHelper;
 import com.denimar.denienglishsrv.service.T05ITMService;
 import com.denimar.denienglishsrv.service.T08VDOService;
@@ -56,14 +57,14 @@ public class VideoController {
 			return new RestDefaultReturn<T08VDO>(false, e.getMessage());			
 		}
 	}
-	
-	@RequestMapping(value = "/comentarios/set", method = { RequestMethod.POST }, produces = MediaType.APPLICATION_JSON_VALUE)	
-	public RestDefaultReturn<T08VDO> setComentariosVideo(@RequestParam("cd_video") final int cd_video, @RequestBody final String tx_comentario)  {
+
+	@RequestMapping(value = "/commentary/set", method = { RequestMethod.POST }, produces = MediaType.APPLICATION_JSON_VALUE)	
+	public RestDefaultReturn<T08VDO> setComentariosVideo(@RequestParam("cd_video") final int cd_video, @RequestBody final VideoCommentariesRequestDTO videoCommentariesRequestDTO)  {
 		T08VDO t08vdo = t08vdoService.findOne(cd_video);
 		if (t08vdo == null) {
 			return new RestDefaultReturn<T08VDO>(false, "Video not found!");
 		} else {
-			t08vdo.setTxComentarios(tx_comentario);
+			t08vdo.setTxComentarios(videoCommentariesRequestDTO.getTxCommentaries());
 			t08vdoService.save(t08vdo);
 			return new RestDefaultReturn<T08VDO>(true, t08vdo);
 		}
