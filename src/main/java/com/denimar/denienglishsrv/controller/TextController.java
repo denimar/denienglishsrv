@@ -7,6 +7,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -47,7 +48,7 @@ public class TextController {
 		}	
 	}	
  
-	@RequestMapping(value = "/content/set", produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/content/set", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public RestDefaultReturn<T07CTD> seTextContent(@RequestBody TextContentRequestDTO textContentRequestDTO)  {
 		T07CTD t07ctd = t07ctdService.findByT07txt_CdTexto(textContentRequestDTO.getCd_texto());
 		if (t07ctd == null) {
