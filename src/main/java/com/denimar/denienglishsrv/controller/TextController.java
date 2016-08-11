@@ -1,7 +1,6 @@
 package com.denimar.denienglishsrv.controller;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -13,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.denimar.denienglishsrv.domain.T07CTD;
 import com.denimar.denienglishsrv.domain.T07TXT;
+import com.denimar.denienglishsrv.dto.TextContentRequestDTO;
 import com.denimar.denienglishsrv.service.T07CTDService;
 import com.denimar.denienglishsrv.service.T07TXTService;
 import com.denimar.denienglishsrv.vo.RestDefaultReturn;
@@ -37,8 +37,8 @@ public class TextController {
 		}	
 	}	
 	
-	@RequestMapping(value = "/conteudo/get", produces = MediaType.APPLICATION_JSON_VALUE)
-	public RestDefaultReturn<T07CTD> getConteudoTexto(@RequestParam("cd_texto") final int cd_texto)  {
+	@RequestMapping(value = "/content/get", produces = MediaType.APPLICATION_JSON_VALUE)
+	public RestDefaultReturn<T07CTD> getTextContent(@RequestParam("cd_texto") final int cd_texto)  {
 		T07CTD t07ctd = t07ctdService.findByT07txt_CdTexto(cd_texto);
 		if (t07ctd == null) {
 			return new RestDefaultReturn<T07CTD>(false, "Text not found!");	
@@ -47,13 +47,13 @@ public class TextController {
 		}	
 	}	
  
-	@RequestMapping(value = "/conteudo/set", produces = MediaType.APPLICATION_JSON_VALUE)
-	public RestDefaultReturn<T07CTD> setConteudoTexto(@RequestParam("cd_texto") final int cd_texto, @RequestBody String tx_conteudo)  {
-		T07CTD t07ctd = t07ctdService.findByT07txt_CdTexto(cd_texto);
+	@RequestMapping(value = "/content/set", produces = MediaType.APPLICATION_JSON_VALUE)
+	public RestDefaultReturn<T07CTD> seTextContent(@RequestBody TextContentRequestDTO textContentRequestDTO)  {
+		T07CTD t07ctd = t07ctdService.findByT07txt_CdTexto(textContentRequestDTO.getCd_texto());
 		if (t07ctd == null) {
 			return new RestDefaultReturn<T07CTD>(false, "Text not found!");	
 		} else {
-			t07ctd.setTxConteudo(tx_conteudo);
+			t07ctd.setTxConteudo(textContentRequestDTO.getTx_conteudo());
 			t07ctdService.save(t07ctd);
 			return new RestDefaultReturn<T07CTD>(true, t07ctd);
 		}	
