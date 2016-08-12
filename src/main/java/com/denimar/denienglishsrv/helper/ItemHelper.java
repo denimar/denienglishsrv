@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 
 import com.denimar.denienglishsrv.domain.T02CTG;
 import com.denimar.denienglishsrv.domain.T05ITM;
-import com.denimar.denienglishsrv.domain.T07TXT;
 import com.denimar.denienglishsrv.domain.T90IMG;
 import com.denimar.denienglishsrv.helper.enums.CATEGORY_TYPE_ENUM;
 import com.denimar.denienglishsrv.service.T02CTGService;
@@ -25,6 +24,8 @@ public class ItemHelper {
 	private T05ITMService t05itmService;
 	@Autowired	 
 	private T90IMGService t90imgService;
+	@Autowired
+	private TextHelper textHelper;
 	
 	public T05ITM createItem(final int topCategoryNode, final int cd_categoria, final String ds_item, final String bt_imagem_item) throws Exception {
 		T02CTG t02ctg = t02ctgService.findOne(cd_categoria);
@@ -40,11 +41,7 @@ public class ItemHelper {
 		
 		//
 		if (topCategoryNode == CATEGORY_TYPE_ENUM.TEXT.getCategoryType()){
-			T07TXT t07txt = new T07TXT();
-			t07txt.setT05itm(t05itm);
-			t07txt.setNrSeq((short) 1);
-			t07txt.setDsTitulo("default");
-			t07txt.setBlFazerRevisao(true);
+			textHelper.createNewEmptyText(t05itm);
 		}
 		
 		//Save the image
