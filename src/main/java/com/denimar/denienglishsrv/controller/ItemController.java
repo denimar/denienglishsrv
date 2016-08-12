@@ -82,10 +82,19 @@ public class ItemController {
 		}	
 	}
 	
+	/**
+	 * 
+	 * @param topCategoryNode This param serve to identify which kind of content there is in this item (text or video)
+	 * @param cd_categoria
+	 * @param ds_item
+	 * @param imageRequestDTO
+	 * @return
+	 * @throws IOException
+	 */
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
-	public RestDefaultReturn<T05ITM> addItem(@RequestParam("cd_categoria") final int cd_categoria, @RequestParam("ds_item") final String ds_item, final @RequestBody ImageRequestDTO imageRequestDTO) throws IOException  {
+	public RestDefaultReturn<T05ITM> addItem(@RequestParam("topCategoryNode") final int topCategoryNode, @RequestParam("cd_categoria") final int cd_categoria, @RequestParam("ds_item") final String ds_item, final @RequestBody ImageRequestDTO imageRequestDTO) throws IOException  {
 		try {
-			T05ITM t05itm = itemHelper.createItem(cd_categoria, ds_item, imageRequestDTO.getBt_imagem());
+			T05ITM t05itm = itemHelper.createItem(topCategoryNode, cd_categoria, ds_item, imageRequestDTO.getBt_imagem());
 			return new RestDefaultReturn<T05ITM>(true, t05itm);
 		} catch (Exception e) {
 			return new RestDefaultReturn<T05ITM>(false, e.getMessage());			

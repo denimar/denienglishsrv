@@ -1,5 +1,10 @@
 package com.denimar.denienglishsrv.controller;
 
+import java.io.File;
+import java.net.URL;
+import java.util.concurrent.atomic.AtomicBoolean;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,12 +21,17 @@ import com.denimar.denienglishsrv.domain.T05ITM;
 import com.denimar.denienglishsrv.domain.T08VDO;
 import com.denimar.denienglishsrv.domain.T90IMG;
 import com.denimar.denienglishsrv.dto.CreateVideoRequestDTO;
+import com.denimar.denienglishsrv.dto.DownloadYoutubeVideoResponseDTO;
 import com.denimar.denienglishsrv.dto.VideoCommentariesRequestDTO;
 import com.denimar.denienglishsrv.helper.ImageHelper;
 import com.denimar.denienglishsrv.service.T05ITMService;
 import com.denimar.denienglishsrv.service.T08VDOService;
 import com.denimar.denienglishsrv.service.T90IMGService;
 import com.denimar.denienglishsrv.vo.RestDefaultReturn;
+import com.github.axet.vget.VGet;
+import com.github.axet.vget.info.VGetParser;
+import com.github.axet.vget.info.VideoFileInfo;
+import com.github.axet.vget.info.VideoInfo;
 
 @RestController
 @RequestMapping("/video")
@@ -80,5 +90,66 @@ public class VideoController {
 			imageHelper.getImagemBancoDados(response, t90img.getBtImagem());
 		}
 	}
+	
+	@RequestMapping(value = "/download/youtube")
+	public RestDefaultReturn<DownloadYoutubeVideoResponseDTO> getPosterVideo(@RequestParam("id_video") final String id_video, HttpServletRequest request, HttpServletResponse response) throws Exception {
+        // ex: https://www.youtube.com/watch?v=gXq-14lV79s
+        String url = "https://www.youtube.com/watch?v=" + id_video;
+        String miliseconds = String.valueOf(System.currentTimeMillis());
+        // ex: "/Users/axet/Downloads"
+        String path = request.getSession().getServletContext().getRealPath(miliseconds);
+        File dir = new File(path);
+        dir.mkdirs();
+        
+        //////////////////
+        
+        VGet v = new VGet(new URL(url), dir);
+        DownloadYoutubeThread downloadYoutubeThread = new DownloadYoutubeThread(v);
+        downloadYoutubeThread.start();
+
+        DownloadYoutubeVideoResponseDTO downloadYoutubeVideoResponseDTO = new DownloadYoutubeVideoResponseDTO();
+        downloadYoutubeVideoResponseDTO.setUrl(miliseconds + "/" + miliseconds + ".mp4");
+        
+        return new RestDefaultReturn<DownloadYoutubeVideoResponseDTO>(true, downloadYoutubeVideoResponseDTO);
+        
+        /*
+        File outputFile = new File(dir, miliseconds + ".mp4");
+        
+        
+        URL web = new URL(url);
+        VGetParser user = VGet.parser(web);
+        VideoInfo videoinfo = user.info(web);
+        
+        VGet v = new VGet(videoinfo, dir);
+
+        v.extract();
+        
+        AtomicBoolean confict = new AtomicBoolean(true);
+        v.targetFile(videoinfo.getInfo().get(0), ".mp4", confict);
+        v.setTarget(outputFile);
+        
+        DownloadYoutubeThread downloadYoutubeThread = new DownloadYoutubeThread(v);
+        downloadYoutubeThread.start();
+
+        DownloadYoutubeVideoResponseDTO downloadYoutubeVideoResponseDTO = new DownloadYoutubeVideoResponseDTO();
+        downloadYoutubeVideoResponseDTO.setUrl(miliseconds + "/" + miliseconds + ".mp4");
+        
+        return new RestDefaultReturn<DownloadYoutubeVideoResponseDTO>(true, downloadYoutubeVideoResponseDTO);
+        */
+	}
+	
+
+	static class DownloadYoutubeThread extends Thread {
+		VGet vGetDownload; 
+		
+		public DownloadYoutubeThread(VGet vGet) {
+			this.vGetDownload = vGet;
+		}
+	 
+		public void run() {
+			this.vGetDownload.download();
+			System.out.println("done....");
+		}
+	}		
 	
 }

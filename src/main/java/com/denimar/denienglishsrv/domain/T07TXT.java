@@ -39,11 +39,11 @@ public class T07TXT implements java.io.Serializable {
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "dt_inclusao", nullable = false)
-	private Date dtInclusao;
+	private Date dtInclusao = new Date();
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "dt_alteracao", nullable = false)
-	private Date dtAlteracao;
+	private Date dtAlteracao = new Date();
 	
 	@Column(name = "bl_fazer_revisao", nullable = false)
 	private boolean blFazerRevisao;
