@@ -25,11 +25,6 @@ public class T90IMG implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int cdImagem;
 	
-	
-	@ManyToOne(fetch = FetchType.LAZY) 
-	@JoinColumn(name = "cd_tipo")
-	private T01TPO t01tpo;
-	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "cd_item")
 	private T05ITM t05itm;
@@ -51,14 +46,6 @@ public class T90IMG implements Serializable {
 
 	public void setCdImagem(int cdImagem) {
 		this.cdImagem = cdImagem;
-	}
-
-	public T01TPO getT01tpo() {
-		return t01tpo;
-	}
-
-	public void setT01tpo(T01TPO t01tpo) {
-		this.t01tpo = t01tpo;
 	}
 
 	public T05ITM getT05itm() {

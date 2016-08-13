@@ -100,7 +100,7 @@ public class ItemHelper {
 			list.addAll(t05itmService.findByT02ctgOrderByDsItemAsc(category));
 		}
 		
-		List<T02CTG> children = t02ctgService.findByT02ctg(category);
+		List<T02CTG> children = t02ctgService.findByT02ctgOrderByDsCategoria(category);
 		
 		for (T02CTG child : children) {
 			list.addAll(getItemsByCategory(child, false, onlyFavorites));

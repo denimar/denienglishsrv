@@ -56,7 +56,7 @@ public class CategoryHelper {
 	}
 	
 	private CategoryTreeListResponseDTO[] getCategoryChildrenTreeList(T02CTG parentCategory) {
-		List<T02CTG> list = t02ctgService.findByT02ctg(parentCategory);		
+		List<T02CTG> list = t02ctgService.findByT02ctgOrderByDsCategoria(parentCategory);		
 		
 		CategoryTreeListResponseDTO[] children = new CategoryTreeListResponseDTO[list.size()];
 		for (int index = 0 ; index < list.size() ; index++) {
@@ -98,7 +98,7 @@ public class CategoryHelper {
 		list.add(t02ctg);
 		
 		
-		List<T02CTG> children = t02ctgService.findByT02ctg(t02ctg);
+		List<T02CTG> children = t02ctgService.findByT02ctgOrderByDsCategoria(t02ctg);
 		for (T02CTG child : children) {
 			list.addAll(getAllCategoryChildren(child));
 		}

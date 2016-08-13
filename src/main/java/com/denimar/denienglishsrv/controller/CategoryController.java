@@ -14,12 +14,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.denimar.denienglishsrv.domain.T01TPO;
 import com.denimar.denienglishsrv.domain.T02CTG;
 import com.denimar.denienglishsrv.dto.CategoryTreeListResponseDTO;
 import com.denimar.denienglishsrv.helper.CategoryHelper;
 import com.denimar.denienglishsrv.helper.ImageHelper;
-import com.denimar.denienglishsrv.service.T01TPOService;
 import com.denimar.denienglishsrv.service.T02CTGService;
 import com.denimar.denienglishsrv.service.T90IMGService;
 import com.denimar.denienglishsrv.vo.RestDefaultReturn;
@@ -30,8 +28,6 @@ import com.denimar.denienglishsrv.vo.RestDefaultReturn;
 public class CategoryController {
 	
 	@Autowired
-	T01TPOService t01tpoService;
-	@Autowired
 	T02CTGService t02ctgService;
 	@Autowired	 
 	private T90IMGService t90imgService;
@@ -39,12 +35,6 @@ public class CategoryController {
 	CategoryHelper categoryHelper; 
 	@Autowired
 	private ImageHelper imageHelper;
-	
-	@RequestMapping(value = "/list", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)	
-	public RestDefaultReturn<T02CTG> listCategories(@RequestParam("cd_tipo") final int cd_tipo)  {
-		T01TPO t01tpo = new T01TPO(cd_tipo, "");
-		return new RestDefaultReturn<T02CTG>(true, t02ctgService.findByT01tpo(t01tpo));
-	}
 	
 	@RequestMapping(value = "/category/tree/list", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)	
 	public @ResponseBody CategoryTreeListResponseDTO[] getCategoryTreeList()  {
@@ -62,7 +52,7 @@ public class CategoryController {
 	}
 	
 	@RequestMapping(value = "/add", produces = MediaType.APPLICATION_JSON_VALUE)	
-	public RestDefaultReturn<T02CTG> addCategory(@RequestParam("cd_categoria_pai") final int cd_categoria_pai, final String ds_categoria) {
+	public RestDefaultReturn<T02CTG> addCategory(@RequestParam("cd_categoria_pai") final int cd_categoria_pai, @RequestParam("ds_categoria") final String ds_categoria) {
 		try {
 			//Get the parent category
 			T02CTG parentT02CTG = t02ctgService.findOne(cd_categoria_pai);
