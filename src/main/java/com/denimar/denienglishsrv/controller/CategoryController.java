@@ -62,14 +62,17 @@ public class CategoryController {
 	}
 	
 	@RequestMapping(value = "/add", produces = MediaType.APPLICATION_JSON_VALUE)	
-	public RestDefaultReturn<T02CTG> addCategory(@RequestParam("cd_tipo") final int cd_tipo, @RequestParam(defaultValue="-1", name="cd_categoria_pai", required=false) final int cd_categoria_pai, final String ds_categoria) {
+	public RestDefaultReturn<T02CTG> addCategory(@RequestParam("cd_categoria_pai") final int cd_categoria_pai, final String ds_categoria) {
 		try {
-			T01TPO t01tpo = t01tpoService.findOne(cd_tipo);
+			//Get the parent category
+			T02CTG parentT02CTG = t02ctgService.findOne(cd_categoria_pai);
+			if (parentT02CTG == null) {
+				return new RestDefaultReturn<T02CTG>(false, "Parent category not found!");	
+			}
 			
 			//Adiciona a categoria
 			T02CTG t02ctg = new T02CTG();
-			t02ctg.setT01tpo(t01tpo);
-			t02ctg.setT02ctg(t02ctgService.findOne(cd_categoria_pai));
+			t02ctg.setT02ctg(parentT02CTG);
 			t02ctg.setDsCategoria(ds_categoria);
 			t02ctgService.save(t02ctg);
 			return new RestDefaultReturn<T02CTG>(true, t02ctg);

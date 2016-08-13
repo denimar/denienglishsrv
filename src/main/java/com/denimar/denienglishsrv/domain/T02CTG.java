@@ -15,9 +15,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 
-
 @Entity
-@Table(name = "t02ctg", uniqueConstraints = @UniqueConstraint(columnNames = {"cd_tipo", "cd_categoria_pai", "ds_categoria" }))
+@Table(name = "t02ctg", uniqueConstraints = @UniqueConstraint(columnNames = {"cd_categoria_pai", "ds_categoria" }))
 public class T02CTG implements java.io.Serializable {
 	
 	@Id
@@ -28,10 +27,6 @@ public class T02CTG implements java.io.Serializable {
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "cd_categoria_pai")
 	private T02CTG t02ctg;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "cd_tipo", nullable = false)
-	private T01TPO t01tpo;
 	
 	@Column(name = "ds_categoria", nullable = false, length = 40)
 	private String dsCategoria;
@@ -47,9 +42,8 @@ public class T02CTG implements java.io.Serializable {
 	public T02CTG() {
 	}
 
-	public T02CTG(int cdCategoria, T01TPO t01tpo, String dsCategoria, Date dhInclusao, Date dhAlteracao) {
+	public T02CTG(int cdCategoria, String dsCategoria, Date dhInclusao, Date dhAlteracao) {
 		this.cdCategoria = cdCategoria;
-		this.t01tpo = t01tpo;
 		this.dsCategoria = dsCategoria;
 		this.dhInclusao = dhInclusao;
 		this.dhAlteracao = dhAlteracao;
@@ -69,14 +63,6 @@ public class T02CTG implements java.io.Serializable {
 
 	public void setT02ctg(T02CTG t02ctg) {
 		this.t02ctg = t02ctg;
-	}
-
-	public T01TPO getT01tpo() {
-		return t01tpo;
-	}
-
-	public void setT01tpo(T01TPO t01tpo) {
-		this.t01tpo = t01tpo;
 	}
 
 	public String getDsCategoria() {
