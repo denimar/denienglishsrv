@@ -54,16 +54,14 @@ public class VideoDao {
 		t08vdo.setIdVideo(createVideoRequest.getId_Video());
 		t08vdoService.save(t08vdo);
 
-		/* ************** It is not added image to video anymore... It is catch from urls...
-		 * 		
-		byte[] videoImage = videoHelper.getVideoImage(createVideoRequest.getTp_video(), createVideoRequest.getId_Video());
+		String urlPoster = videoHelper.getUtlPoster(createVideoRequest.getTp_video(), createVideoRequest.getId_Video());
+		byte[] videoImage = videoHelper.getBytesArrayFromURL(urlPoster);
 		
 		//Save the image
 		T90IMG t90img = new T90IMG();
 		t90img.setBtImagem(videoImage);
 		t90img.setT05itm(t05itm);
 		t90imgService.save(t90img);
-		*/			
 		
 		return t08vdo;
 	}

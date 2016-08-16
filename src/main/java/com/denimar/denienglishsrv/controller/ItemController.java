@@ -165,7 +165,11 @@ public class ItemController {
 		T05ITM t05itm = t05itmService.findOne(cd_item);
 		if (t05itm == null) {
 			throw new Exception("Item not found!");
-		} else { 
+		} else {
+			T90IMG t90img = t90imgService.findByT05itm(t05itm);
+			imageHelper.getImagemBancoDados(response, t90img.getBtImagem());
+			
+			/*
 			//Text
 			if (topCategoryNode == CATEGORY_TYPE_ENUM.TEXT.getCategoryType()){
 				T90IMG t90img = t90imgService.findByT05itm(t05itm);
@@ -186,6 +190,7 @@ public class ItemController {
 			} else {
 				throw new Exception("Invalid Item Type!");
 			}
+			*/
 		}
 	}
 	
