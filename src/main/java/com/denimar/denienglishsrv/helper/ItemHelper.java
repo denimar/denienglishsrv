@@ -26,8 +26,14 @@ public class ItemHelper {
 	private T90IMGService t90imgService;
 	@Autowired
 	private TextHelper textHelper;
+	@Autowired
+	private VideoHelper videoHelper;
 	
 	public T05ITM createItem(final int topCategoryNode, final int cd_categoria, final String ds_item, final String bt_imagem_item) throws Exception {
+		return createItem(topCategoryNode, cd_categoria, ds_item, ImageHelper.getBytesFromUriImagem(bt_imagem_item));
+	}
+	
+	public T05ITM createItem(final int topCategoryNode, final int cd_categoria, final String ds_item, final byte[] bt_imagem_item) throws Exception {
 		T02CTG t02ctg = t02ctgService.findOne(cd_categoria);
 		if (t02ctg == null) {
 			throw new Exception("Category not found!");
@@ -39,14 +45,19 @@ public class ItemHelper {
 		t05itm.setDsItem(ds_item);
 		t05itmService.save(t05itm);
 		
-		//
+		//Text
 		if (topCategoryNode == CATEGORY_TYPE_ENUM.TEXT.getCategoryType()){
 			textHelper.createNewEmptyText(t05itm);
+		//Video
+		} else if (topCategoryNode == CATEGORY_TYPE_ENUM.VIDEO.getCategoryType()){
+			//videoHelper.createVideo(t05itm, ds_url)
+		} else {
+			throw new Exception("Invalid Item Type!");
 		}
 		
 		//Save the image
 		T90IMG t90img = new T90IMG();
-		byte[] imagem = ImageHelper.getBytesFromUriImagem(bt_imagem_item);
+		byte[] imagem = bt_imagem_item;
 		t90img.setBtImagem(imagem);
 		t90img.setT05itm(t05itm);
 		t90imgService.save(t90img);

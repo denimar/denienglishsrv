@@ -1,27 +1,33 @@
 package com.denimar.denienglishsrv.helper;
 
 import java.io.IOException;
+import java.net.URL;
 
 import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.denimar.denienglishsrv.domain.T05ITM;
-import com.denimar.denienglishsrv.domain.T08VDO;
+import com.denimar.denienglishsrv.domain.enums.VIDEO_TYPE_ENUM;
 import com.denimar.denienglishsrv.service.T08VDOService;
 
 @Component
 public class VideoHelper {
 	
-	@Autowired	 
+	@Autowired
 	private T08VDOService t08vdoService;
-	
-	public T08VDO createVideo(T05ITM t05itm, String ds_url) {
-		T08VDO t08vdo = new T08VDO();
-		t08vdo.setT05itm(t05itm);
-		t08vdo.setDsUrl(ds_url);
-		t08vdoService.save(t08vdo);
-		return t08vdo;
+	@Autowired
+	private GeneralHelper generalHelper;	
+
+	public byte[] getVideoImage(VIDEO_TYPE_ENUM tpVideo, String idVideo) throws IOException {
+		
+		String urlImage = null;
+		if (tpVideo == VIDEO_TYPE_ENUM.YOUTUBE) {
+			urlImage = "http://img.youtube.com/vi/" + idVideo + "/default.jpg";
+		} else if (tpVideo == VIDEO_TYPE_ENUM.GOOGLE_DRIVE) {
+			urlImage = "https://docs.google.com/vt?id=" + idVideo;
+		}
+		
+		return generalHelper.downloadFileBitesArray(new URL(urlImage));
 	}
 	
 	public byte[] getBytesFromUriImagem(String uriImagemBase64) throws IOException {

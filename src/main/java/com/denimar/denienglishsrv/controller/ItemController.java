@@ -15,12 +15,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.denimar.denienglishsrv.domain.T02CTG;
 import com.denimar.denienglishsrv.domain.T05ITM;
+import com.denimar.denienglishsrv.domain.T08VDO;
 import com.denimar.denienglishsrv.domain.T90IMG;
+import com.denimar.denienglishsrv.domain.enums.VIDEO_TYPE_ENUM;
 import com.denimar.denienglishsrv.dto.ImageRequestDTO;
 import com.denimar.denienglishsrv.helper.ImageHelper;
 import com.denimar.denienglishsrv.helper.ItemHelper;
+import com.denimar.denienglishsrv.helper.enums.CATEGORY_TYPE_ENUM;
 import com.denimar.denienglishsrv.service.T02CTGService;
 import com.denimar.denienglishsrv.service.T05ITMService;
+import com.denimar.denienglishsrv.service.T08VDOService;
 import com.denimar.denienglishsrv.service.T90IMGService;
 import com.denimar.denienglishsrv.vo.RestDefaultReturn;
 
@@ -33,6 +37,8 @@ public class ItemController {
 	private T02CTGService t02ctgService;
 	@Autowired	 
 	private T05ITMService t05itmService;
+	@Autowired	 
+	private T08VDOService t08vdoService;
 	@Autowired	 
 	private T90IMGService t90imgService;
 	@Autowired
@@ -155,14 +161,33 @@ public class ItemController {
 	}	
 
 	@RequestMapping(value = "/image/get")
-	public void getImage(@RequestParam("cd_item") final long cd_item, @RequestParam("time") final String time, HttpServletResponse response) throws Exception {
+	public void getImage(@RequestParam("topCategoryNode") final int topCategoryNode, @RequestParam("cd_item") final long cd_item, @RequestParam("time") final String time, HttpServletResponse response) throws Exception {
 		T05ITM t05itm = t05itmService.findOne(cd_item);
 		if (t05itm == null) {
 			throw new Exception("Item not found!");
-		} else {
-			T90IMG t90img = t90imgService.findByT05itm(t05itm);
-			imageHelper.getImagemBancoDados(response, t90img.getBtImagem());
+		} else { 
+			//Text
+			if (topCategoryNode == CATEGORY_TYPE_ENUM.TEXT.getCategoryType()){
+				T90IMG t90img = t90imgService.findByT05itm(t05itm);
+				imageHelper.getImagemBancoDados(response, t90img.getBtImagem());
+
+			//Video
+			} else if (topCategoryNode == CATEGORY_TYPE_ENUM.VIDEO.getCategoryType()){
+				T08VDO t08vdo = t08vdoService.findByT05itm(t05itm);
+				
+				String urlImage = null;
+				if (t08vdo.getTpVideo() == VIDEO_TYPE_ENUM.YOUTUBE) {
+					urlImage = "http://img.youtube.com/vi/" + t08vdo.getIdVideo() + "/default.jpg";
+				} else if (t08vdo.getTpVideo() == VIDEO_TYPE_ENUM.GOOGLE_DRIVE) {
+					urlImage = "https://docs.google.com/vt?id=" + t08vdo.getIdVideo();
+				}
+				response.sendRedirect(urlImage);
+				
+			} else {
+				throw new Exception("Invalid Item Type!");
+			}
 		}
 	}
 	
 }
+

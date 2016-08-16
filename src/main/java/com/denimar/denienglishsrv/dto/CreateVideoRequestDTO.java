@@ -1,11 +1,13 @@
 package com.denimar.denienglishsrv.dto;
 
+import com.denimar.denienglishsrv.domain.enums.VIDEO_TYPE_ENUM;
+
 public class CreateVideoRequestDTO {
 	
 	private int cd_categoria;
+	private VIDEO_TYPE_ENUM tp_video;
+	private String id_video;	
 	private String ds_item;
-	private String ds_url;
-	private String bt_imagem_item;
 	
 	public int getCd_categoria() {
 		return cd_categoria;
@@ -13,23 +15,24 @@ public class CreateVideoRequestDTO {
 	public void setCd_categoria(int cd_categoria) {
 		this.cd_categoria = cd_categoria;
 	}
+	
+	public VIDEO_TYPE_ENUM getTp_video() {
+		return tp_video;
+	}
+	public void setTp_video(VIDEO_TYPE_ENUM tp_video) {
+		this.tp_video = tp_video;
+	}
+	
 	public String getDs_item() {
 		return ds_item;
 	}
 	public void setDs_item(String ds_item) {
 		this.ds_item = ds_item;
 	}
-	public String getDs_url() {
-		return ds_url;
+	public String getId_Video() {
+		return id_video;
 	}
-	public void setDs_url(String ds_url) {
-		this.ds_url = ds_url;
+	public void setId_video(String id_video) {
+		this.id_video = id_video;
 	}
-	public String getBt_imagem_item() {
-		return bt_imagem_item;
-	}
-	public void setBt_imagem_item(String bt_imagem_item) {
-		this.bt_imagem_item = bt_imagem_item;
-	}
-
 }

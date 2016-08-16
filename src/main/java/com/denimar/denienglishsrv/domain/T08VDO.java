@@ -10,6 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.denimar.denienglishsrv.domain.enums.VIDEO_TYPE_ENUM;
+
 /*------------------------------------------
 Videos
 -------------------------------------------*/
@@ -22,6 +24,9 @@ public class T08VDO implements java.io.Serializable {
 	@Column(name = "cd_video")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int cdVideo;
+
+	@Column(name = "tp_video")
+	private VIDEO_TYPE_ENUM tpVideo;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "cd_item", nullable = false)
@@ -30,16 +35,21 @@ public class T08VDO implements java.io.Serializable {
 	@Column(name = "tx_comentarios")
 	private String txComentarios;
 	
-	@Column(name = "ds_url", length = 255)
-	private String dsUrl;
-	
-	@Column(name = "bl_fazer_revisao", nullable = false)
-	private boolean blFazerRevisao = false;
+	@Column(name = "id_video", length = 50)
+	private String idVideo;
 
 	public int getCdVideo() {
 		return cdVideo;
 	}
 
+	public VIDEO_TYPE_ENUM getTpVideo() {
+		return tpVideo;
+	}
+
+	public void setTpVideo(VIDEO_TYPE_ENUM tpVideo) {
+		this.tpVideo = tpVideo;
+	}
+	
 	public void setCdVideo(int cdVideo) {
 		this.cdVideo = cdVideo;
 	}
@@ -60,20 +70,12 @@ public class T08VDO implements java.io.Serializable {
 		this.txComentarios = txComentarios;
 	}
 
-	public String getDsUrl() {
-		return dsUrl;
+	public String getIdVideo() {
+		return idVideo;
 	}
 
-	public void setDsUrl(String dsUrl) {
-		this.dsUrl = dsUrl;
-	}
-
-	public boolean isBlFazerRevisao() {
-		return blFazerRevisao;
-	}
-
-	public void setBlFazerRevisao(boolean blFazerRevisao) {
-		this.blFazerRevisao = blFazerRevisao;
+	public void setIdVideo(String idVideo) {
+		this.idVideo = idVideo;
 	}
 	
 }
