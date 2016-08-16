@@ -15,13 +15,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.denimar.denienglishsrv.domain.T02CTG;
 import com.denimar.denienglishsrv.domain.T05ITM;
-import com.denimar.denienglishsrv.domain.T08VDO;
 import com.denimar.denienglishsrv.domain.T90IMG;
 import com.denimar.denienglishsrv.domain.enums.VIDEO_TYPE_ENUM;
 import com.denimar.denienglishsrv.dto.ImageRequestDTO;
 import com.denimar.denienglishsrv.helper.ImageHelper;
 import com.denimar.denienglishsrv.helper.ItemHelper;
-import com.denimar.denienglishsrv.helper.enums.CATEGORY_TYPE_ENUM;
+import com.denimar.denienglishsrv.helper.VideoHelper;
 import com.denimar.denienglishsrv.service.T02CTGService;
 import com.denimar.denienglishsrv.service.T05ITMService;
 import com.denimar.denienglishsrv.service.T08VDOService;
@@ -45,6 +44,8 @@ public class ItemController {
 	private ItemHelper itemHelper;
 	@Autowired
 	private ImageHelper imageHelper;
+	@Autowired
+	private VideoHelper videoHelper;
 	
 	@RequestMapping("/list")
 	public RestDefaultReturn<T05ITM> getItemsByCategory(@RequestParam("cd_categoria") final int cd_categoria) {
@@ -160,8 +161,21 @@ public class ItemController {
 		}	
 	}	
 
+	@RequestMapping(value = "/image/getlink")
+	public void getImageLink(@RequestParam("tp_video") final int tp_video, @RequestParam("id_video") final String id_video, HttpServletResponse response) throws Exception {
+		if (id_video != null) {
+			VIDEO_TYPE_ENUM videoType = VIDEO_TYPE_ENUM.values()[tp_video];
+			String urlPoster = videoHelper.getUtlPoster(videoType, id_video);
+			byte[] videoImage = videoHelper.getBytesArrayFromURL(urlPoster);
+			
+			if (videoImage != null) {
+				imageHelper.getImagemBancoDados(response, videoImage);				
+			}
+		}
+	}	
+	
 	@RequestMapping(value = "/image/get")
-	public void getImage(@RequestParam("topCategoryNode") final int topCategoryNode, @RequestParam("cd_item") final long cd_item, @RequestParam("time") final String time, HttpServletResponse response) throws Exception {
+	public void getImage(@RequestParam("cd_item") final long cd_item, @RequestParam("time") final String time, HttpServletResponse response) throws Exception {
 		T05ITM t05itm = t05itmService.findOne(cd_item);
 		if (t05itm == null) {
 			throw new Exception("Item not found!");
