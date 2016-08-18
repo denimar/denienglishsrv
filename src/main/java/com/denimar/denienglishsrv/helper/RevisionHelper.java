@@ -1,9 +1,10 @@
 package com.denimar.denienglishsrv.helper;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -74,26 +75,40 @@ public class RevisionHelper {
 			}
 		}
 		
-		String[] expressionsText = text.toString().split("\\s");
-		List<String> expressionsList = Arrays.asList(expressionsText);
+		String expressionsStr = text.toString().trim();
+		//String[] expressionsText = text.toString().trim().split("\\s");
+		//List<String> expressionsList = Arrays.asList(expressionsText);
 
 		//Searching within the Dictionary		
 		List<T50DCI> t50dciList = t50dciService.findAll();
 		for (T50DCI t50dci : t50dciList) {
-			if (expressionsList.contains(t50dci.getDsExpressao())) {
-				ExpressionResponseDTO item = new ExpressionResponseDTO();
-				item.setCdDicionario(t50dci.getCdDicionario());
-				item.setDsExpressao(t50dci.getDsExpressao());
-				item.setNrLevelOfLearning(t50dci.getNrLevelOfLearning());
-				
-				listReturn.add(item);
+			List<String> expressionsDicionaryList = new ArrayList<String>();			
+			expressionsDicionaryList.add(t50dci.getDsExpressao());
+
+			if ((t50dci.getDsTags() != null) && (!t50dci.getDsTags().isEmpty())) {
+				String[] tags = t50dci.getDsTags().split(",");
+				for (int i = 0; i < tags.length; i++) {
+					expressionsDicionaryList.add(tags[i]);		
+				}
 			}
+			
+			for (String expressionDictionary : expressionsDicionaryList) {
+				if (isContainExactWord(expressionsStr, expressionDictionary)) {
+					ExpressionResponseDTO item = new ExpressionResponseDTO();
+					item.setCdDicionario(t50dci.getCdDicionario());
+					item.setDsExpressao(t50dci.getDsExpressao());
+					item.setNrLevelOfLearning(t50dci.getNrLevelOfLearning());
+					listReturn.add(item);
+					break;
+				}
+			}	
+			
 		}
 		
 		//Searching within the Pronunciations
 		List<T51PRN> t51prnList = t51prnService.findAll();
 		for (T51PRN t51prn : t51prnList) {
-			if (expressionsList.contains(t51prn.getDsExpressao())) {
+			if (isContainExactWord(expressionsStr, t51prn.getDsExpressao())) {
 				ExpressionResponseDTO item = new ExpressionResponseDTO();
 				item.setCdPronuncia(t51prn.getCdPronuncia());
 				item.setDsExpressao(t51prn.getDsExpressao());
@@ -105,6 +120,13 @@ public class RevisionHelper {
 		
 		return listReturn;		
 	}
+	
+	private boolean isContainExactWord(String fullString, String partWord){
+	    String pattern = "\\b" + partWord + "\\b";
+	    Pattern p = Pattern.compile(pattern);
+	    Matcher m = p.matcher(fullString);
+	    return m.find();
+	}	
 	
 	public List<T05ITM> getItemsToReviewByCategoryAll(T02CTG t02ctg) {
 		List<T02CTG> t02ctgList = categoryHelper.getAllCategoryChildren(t02ctg);
