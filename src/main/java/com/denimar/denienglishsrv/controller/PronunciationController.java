@@ -21,7 +21,7 @@ public class PronunciationController {
 	
 	@RequestMapping(value = "/list", produces = MediaType.APPLICATION_JSON_VALUE)	
 	public RestDefaultReturn<T51PRN> listPronuncia()  {
-		return new RestDefaultReturn<T51PRN>(true, t51prnService.findAll());
+		return new RestDefaultReturn<T51PRN>(true, t51prnService.findAllByOrderByDsExpressao());
 	}	
 	
 	@RequestMapping(value = "/add", produces = MediaType.APPLICATION_JSON_VALUE)	

@@ -28,7 +28,7 @@ public class DictionaryController {
 	
 	@RequestMapping(value = "/list", produces = MediaType.APPLICATION_JSON_VALUE)	
 	public RestDefaultReturn<T50DCI> listPronuncia()  {
-		return new RestDefaultReturn<T50DCI>(true, t50dciService.findAll());
+		return new RestDefaultReturn<T50DCI>(true, t50dciService.findAllByOrderByDsExpressao());
 	}	
 
 	@RequestMapping(value = "/add", produces = MediaType.APPLICATION_JSON_VALUE)	
