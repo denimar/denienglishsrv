@@ -54,7 +54,7 @@ public class DictionaryController {
 	}
 	
 	@RequestMapping(value = "/upd", produces = MediaType.APPLICATION_JSON_VALUE)	
-	public RestDefaultReturn<T50DCI> updDicionario(@RequestParam("cd_dicionario") final int cd_dicionario, @RequestParam("ds_expressao") final String ds_expressao, @RequestParam("ds_tags") final String ds_tags)  {
+	public RestDefaultReturn<T50DCI> updDicionario(@RequestParam("cd_dicionario") final int cd_dicionario, @RequestParam("ds_expressao") final String ds_expressao, @RequestParam(value = "ds_tags", required = false) final String ds_tags)  {
 		T50DCI t50dci = t50dciService.findOne(cd_dicionario);
 		if (t50dci == null) {
 			return new RestDefaultReturn<T50DCI>(false, "Record not found!");
