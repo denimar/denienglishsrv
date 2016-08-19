@@ -1,5 +1,7 @@
 package com.denimar.denienglishsrv.controller;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -47,6 +49,20 @@ public class DictionaryController {
 			return new RestDefaultReturn<T50DCI>(false, "Record not found!");
 		} else {
 			t50dciService.delete(t50dci);
+			return new RestDefaultReturn<T50DCI>(true, t50dci);
+		}	
+	}
+	
+	@RequestMapping(value = "/upd", produces = MediaType.APPLICATION_JSON_VALUE)	
+	public RestDefaultReturn<T50DCI> updDicionario(@RequestParam("cd_dicionario") final int cd_dicionario, @RequestParam("ds_expressao") final String ds_expressao, @RequestParam("ds_tags") final String ds_tags)  {
+		T50DCI t50dci = t50dciService.findOne(cd_dicionario);
+		if (t50dci == null) {
+			return new RestDefaultReturn<T50DCI>(false, "Record not found!");
+		} else {
+			t50dci.setDsExpressao(ds_expressao);
+			t50dci.setDsTags(ds_tags);
+			t50dci.setDtAlteracao(new Date());
+			t50dciService.save(t50dci);
 			return new RestDefaultReturn<T50DCI>(true, t50dci);
 		}	
 	}	
