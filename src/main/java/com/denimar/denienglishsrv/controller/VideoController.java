@@ -1,11 +1,5 @@
 package com.denimar.denienglishsrv.controller;
 
-import java.io.File;
-import java.net.URL;
-import java.util.List;
-import java.util.concurrent.atomic.AtomicBoolean;
-
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,17 +16,12 @@ import com.denimar.denienglishsrv.domain.T05ITM;
 import com.denimar.denienglishsrv.domain.T08VDO;
 import com.denimar.denienglishsrv.domain.T90IMG;
 import com.denimar.denienglishsrv.dto.CreateVideoRequestDTO;
-import com.denimar.denienglishsrv.dto.DownloadYoutubeVideoResponseDTO;
 import com.denimar.denienglishsrv.dto.VideoCommentariesRequestDTO;
 import com.denimar.denienglishsrv.helper.ImageHelper;
 import com.denimar.denienglishsrv.service.T05ITMService;
 import com.denimar.denienglishsrv.service.T08VDOService;
 import com.denimar.denienglishsrv.service.T90IMGService;
 import com.denimar.denienglishsrv.vo.RestDefaultReturn;
-import com.github.axet.vget.VGet;
-import com.github.axet.vget.info.VGetParser;
-import com.github.axet.vget.info.VideoFileInfo;
-import com.github.axet.vget.info.VideoInfo;
 
 @RestController
 @RequestMapping("/video")

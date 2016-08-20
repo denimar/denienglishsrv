@@ -10,7 +10,6 @@ import com.denimar.denienglishsrv.domain.T08VIS;
 
 public interface T08VISService extends JpaRepository<T08VIS, Integer>{
 	
-	
 	public List<T08VIS> findByT08vdo(T08VDO t08vdo);
 	public List<T08VIS> findByT08vdo_t05itmOrderByNrStart(T05ITM t05itm);	
 	

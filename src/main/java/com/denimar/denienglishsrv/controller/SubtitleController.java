@@ -1,7 +1,9 @@
 package com.denimar.denienglishsrv.controller;
 
+import java.io.IOException;
 import java.util.Date;
 
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -10,11 +12,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.denimar.denienglishsrv.domain.T05ITM;
 import com.denimar.denienglishsrv.domain.T08VDO;
 import com.denimar.denienglishsrv.domain.T08VIS;
 import com.denimar.denienglishsrv.dto.SubtitleRequestDTO;
+import com.denimar.denienglishsrv.helper.SubtitleHelper;
 import com.denimar.denienglishsrv.service.T05ITMService;
 import com.denimar.denienglishsrv.service.T08VDOService;
 import com.denimar.denienglishsrv.service.T08VISService;
@@ -31,12 +35,18 @@ public class SubtitleController {
 	private T08VDOService t08vdoService;
 	@Autowired
 	private T08VISService t08visService;
+	@Autowired
+	private SubtitleHelper subtitleHelper;
 	
 	
 	@RequestMapping(value = "/list", produces = MediaType.APPLICATION_JSON_VALUE)
 	public RestDefaultReturn<T08VIS> getSubtitles(@RequestParam("cd_item") final long cd_item)  {
 		T05ITM t05itm = t05itmService.findOne(cd_item);
-		return new RestDefaultReturn<T08VIS>(true, t08visService.findByT08vdo_t05itmOrderByNrStart(t05itm));
+		if (t05itm == null) {
+			return new RestDefaultReturn<T08VIS>(false, "Item not found!");
+		} else {
+			return new RestDefaultReturn<T08VIS>(true, t08visService.findByT08vdo_t05itmOrderByNrStart(t05itm));
+		}	
 	}
 	
 	@RequestMapping(value = "/add", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)	
@@ -81,4 +91,20 @@ public class SubtitleController {
 		}	
 	}
 	
+	@RequestMapping(value = "/uploadsrt", method = RequestMethod.OPTIONS)
+	public RestDefaultReturn<T08VIS> uploadSrt(@RequestParam("cd_item") final long cd_item, @RequestParam("file") MultipartFile uploadFiles) throws IOException {
+		T05ITM t05itm = t05itmService.findOne(cd_item);
+		if (t05itm == null) {
+			return new RestDefaultReturn<T08VIS>(false, "Item not found!");
+		} else {
+			T08VDO t08vdo = t08vdoService.findByT05itm(t05itm);
+			if (t08vdo == null) {
+				return new RestDefaultReturn<T08VIS>(false, "Video not found!");
+			} else {	
+				String strFileContent = IOUtils.toString(uploadFiles.getInputStream());
+				subtitleHelper.addSubtitleFromFileStrContent(t08vdo, strFileContent);
+				return new RestDefaultReturn<T08VIS>(true, t08visService.findByT08vdo_t05itmOrderByNrStart(t05itm));
+			}	
+		}	
+	}	
 }
