@@ -91,7 +91,7 @@ public class SubtitleController {
 		}	
 	}
 	
-	@RequestMapping(value = "/uploadsrt", method = RequestMethod.OPTIONS)
+	@RequestMapping(value = "/uploadsrt", method = RequestMethod.POST)
 	public RestDefaultReturn<T08VIS> uploadSrt(@RequestParam("cd_item") final long cd_item, @RequestParam("file") MultipartFile uploadFiles) throws IOException {
 		T05ITM t05itm = t05itmService.findOne(cd_item);
 		if (t05itm == null) {
