@@ -3,6 +3,8 @@ package com.denimar.denienglishsrv.controller;
 import java.io.IOException;
 import java.util.Date;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -92,8 +94,10 @@ public class SubtitleController {
 	}
 	
 	@RequestMapping(value = "/uploadsrt", method = RequestMethod.POST)
-	public RestDefaultReturn<T08VIS> uploadSrt(@RequestParam("cd_item") final long cd_item, @RequestParam("file") MultipartFile uploadFiles) throws IOException {
-		T05ITM t05itm = t05itmService.findOne(cd_item);
+	public RestDefaultReturn<T08VIS> uploadSrt(@RequestParam("file") MultipartFile uploadFiles, HttpServletRequest request) throws IOException {
+		long cdItem = Long.parseLong(request.getHeader("cdItem"));
+		
+		T05ITM t05itm = t05itmService.findOne(cdItem);
 		if (t05itm == null) {
 			return new RestDefaultReturn<T08VIS>(false, "Item not found!");
 		} else {
