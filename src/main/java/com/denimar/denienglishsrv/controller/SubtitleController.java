@@ -3,8 +3,6 @@ package com.denimar.denienglishsrv.controller;
 import java.io.IOException;
 import java.util.Date;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -15,10 +13,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.denimar.denienglishsrv.domain.T05ITM;
 import com.denimar.denienglishsrv.domain.T08VDO;
 import com.denimar.denienglishsrv.domain.T08VIS;
+import com.denimar.denienglishsrv.dto.SubtitleImportLyricsRequestDTO;
 import com.denimar.denienglishsrv.dto.SubtitleRequestDTO;
 import com.denimar.denienglishsrv.helper.SubtitleHelper;
 import com.denimar.denienglishsrv.service.T05ITMService;
@@ -93,11 +93,12 @@ public class SubtitleController {
 		}	
 	}
 	
-	@RequestMapping(value = "/uploadsrt", method = RequestMethod.POST)
-	public RestDefaultReturn<T08VIS> uploadSrt(@RequestParam("file") MultipartFile uploadFiles, HttpServletRequest request) throws IOException {
-		long cdItem = Long.parseLong(request.getHeader("cdItem"));
-		
-		T05ITM t05itm = t05itmService.findOne(cdItem);
+	@RequestMapping(value = "/importsrt", method = RequestMethod.POST)
+	public RestDefaultReturn<T08VIS> uploadSrt(MultipartHttpServletRequest request) throws IOException {
+        
+		long cdItem = Long.parseLong(request.getParameter("cdItem"));
+        
+        T05ITM t05itm = t05itmService.findOne(cdItem);
 		if (t05itm == null) {
 			return new RestDefaultReturn<T08VIS>(false, "Item not found!");
 		} else {
@@ -105,10 +106,36 @@ public class SubtitleController {
 			if (t08vdo == null) {
 				return new RestDefaultReturn<T08VIS>(false, "Video not found!");
 			} else {	
-				String strFileContent = IOUtils.toString(uploadFiles.getInputStream());
+				MultipartFile file = request.getFile("file");
+		        
+				t08visService.delete(t08visService.findByT08vdo(t08vdo));
+				
+				String strFileContent = IOUtils.toString(file.getInputStream());
 				subtitleHelper.addSubtitleFromFileStrContent(t08vdo, strFileContent);
 				return new RestDefaultReturn<T08VIS>(true, t08visService.findByT08vdo_t05itmOrderByNrStart(t05itm));
 			}	
 		}	
 	}	
+	
+	@RequestMapping(value = "/importlyrics", method = RequestMethod.POST)
+	public RestDefaultReturn<T08VIS> uploadLyrics(@RequestBody SubtitleImportLyricsRequestDTO subtitleImportLyricsRequestDTO) throws IOException {
+        
+        T05ITM t05itm = t05itmService.findOne(subtitleImportLyricsRequestDTO.getCdItem());
+		if (t05itm == null) {
+			return new RestDefaultReturn<T08VIS>(false, "Item not found!");
+		} else {
+			T08VDO t08vdo = t08vdoService.findByT05itm(t05itm);
+			if (t08vdo == null) {
+				return new RestDefaultReturn<T08VIS>(false, "Video not found!");
+			} else {	
+				t08visService.delete(t08visService.findByT08vdo(t08vdo));
+				
+				subtitleHelper.addSubtitleFromFileLyrics(t08vdo, subtitleImportLyricsRequestDTO.getLyrics());
+				return new RestDefaultReturn<T08VIS>(true, t08visService.findByT08vdo_t05itmOrderByNrStart(t05itm));
+			}	
+		}	
+
+	}	
+	
 }
+	

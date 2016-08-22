@@ -17,35 +17,62 @@ public class SubtitleHelper {
 	@Autowired
 	T08VISService t08visService;
 
-	public void addSubtitleFromFileStrContent(T08VDO t08vdo, String strFileContent) {
-		String[] strFileContentArray = strFileContent.trim().split("\n");
+	public void addSubtitleFromFileLyrics(T08VDO t08vdo, String lyrics) {
+		String[] lyricsContentArray = lyrics.trim().split("\n");
+		
+		List<String> lyricsContentArrayList = new ArrayList<String>(Arrays.asList(lyricsContentArray));
+		
+		int timeBegin = 1;
+		final int timeInc = 60;
+		int time = timeBegin;		
+		int timeEnd = time + timeInc;
+		
+		for (int index = 0 ; index < lyricsContentArrayList.size() ; index++) {
+			String lyricsLine = lyricsContentArrayList.get(index);
+			
+			if (!lyricsLine.trim().equals("")) {
+				T08VIS t08vis = new T08VIS();
+				t08vis.setDsTexto(lyricsLine);
+				t08vis.setNrStart(time);
+				t08vis.setNrEnd(timeEnd);
+				t08vis.setT08vdo(t08vdo);
+				t08visService.save(t08vis);		
+
+				time = timeEnd + 1;				
+				timeEnd = time + timeInc;				
+			}
+		}	
+	}
+	
+	public void addSubtitleFromFileStrContent(T08VDO t08vdo, String srtFileContent) {
+		String[] strFileContentArray = srtFileContent.trim().split("\n");
 		
 		List<String> subtitlesList = new ArrayList<String>(Arrays.asList(strFileContentArray));
 		
 		final String searchString = "-->";
-		for (int count = 0 ; count < subtitlesList.size() ; count++) {
-			String strLine = subtitlesList.get(count);
+		for (int index = 0 ; index < subtitlesList.size() ; index++) {
+			String srtLine = subtitlesList.get(index);
 			
-			int pos = strLine.indexOf(searchString);
+			int pos = srtLine.indexOf(searchString);
 			if (pos != -1) {
-				String startStr = strLine.substring(0, pos - 1).trim();
-				String endStr = strLine.substring(pos + 4).trim();
+				String startStr = srtLine.substring(0, pos - 1).trim();
+				String endStr = srtLine.substring(pos + 4).trim();
 				
 				String auxText = "";
-				count++;
-				if (count < subtitlesList.size()) {
-					strLine = subtitlesList.get(count);
-					while ((count < subtitlesList.size()) && (!strLine.trim().equals(""))) {
+				index++;
+				if (index < subtitlesList.size()) {
+					srtLine = subtitlesList.get(index);
+					while ((index < subtitlesList.size()) && (!srtLine.trim().equals(""))) {
 						if (!auxText.equals("")) {
 							auxText += "<br>";
 						}
-						auxText += strLine;
+						auxText += srtLine;
 						
-						count++;
-						if (count >= subtitlesList.size()) {
+						index++;
+						if (index >= subtitlesList.size()) {
 							break;
 						}
-						strLine = subtitlesList.get(count);
+						srtLine = subtitlesList.get(index);
 					}
 				}
 				
