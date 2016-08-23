@@ -66,7 +66,7 @@ public class ItemController {
 			return new RestDefaultReturn<T05ITM>(true, itemHelper.getItemsByCategory(t02ctg, true, true));
 		}	
 	}
-
+	
 	@RequestMapping(value = "/favorite/set")
 	public RestDefaultReturn<T05ITM> setItemFavorite(@RequestParam("cd_item") final long cd_item, @RequestParam("bl_favorite") boolean bl_favorite) {
 		T05ITM t05itm = t05itmService.findOne(cd_item);
@@ -74,6 +74,18 @@ public class ItemController {
 			return new RestDefaultReturn<T05ITM>(false, "Item not found!");			
 		} else {
 			t05itm.setBlFavorite(bl_favorite);
+			t05itmService.save(t05itm);			
+			return new RestDefaultReturn<T05ITM>(true, t05itm);
+		}	
+	}
+	
+	@RequestMapping(value = "/revision/set")
+	public RestDefaultReturn<T05ITM> setItemRevision(@RequestParam("cd_item") final long cd_item, @RequestParam("bl_fazer_revisao") boolean bl_fazer_revisao) {
+		T05ITM t05itm = t05itmService.findOne(cd_item);
+		if (t05itm == null) {
+			return new RestDefaultReturn<T05ITM>(false, "Item not found!");			
+		} else {
+			t05itm.setBlFazerRevisao(bl_fazer_revisao);
 			t05itmService.save(t05itm);			
 			return new RestDefaultReturn<T05ITM>(true, t05itm);
 		}	
