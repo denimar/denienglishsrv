@@ -129,19 +129,8 @@ public class RevisionHelper {
 	}	
 	
 	public List<T05ITM> getItemsToReviewByCategoryAll(T02CTG t02ctg) {
-		List<T02CTG> t02ctgList = categoryHelper.getAllCategoryChildren(t02ctg);
-		
-		Calendar cal = Calendar.getInstance();
-		cal.add(Calendar.DATE, -7);        	
-		
-		List<T05ITM> t05itmList = new ArrayList<T05ITM>();		
-		
-		for (T02CTG category : t02ctgList) {
-			//t05itmList.addAll(t05itmService.findByT02ctgAndBlFazerRevisaoAndDtLastRevisionLessThan(category, true, cal.getTime()));
-			t05itmList.addAll(t05itmService.findByT02ctgAndBlFazerRevisaoOrderByDtLastRevisionAscDtInclusaoAsc(category, true));
-		}
-		
-		return t05itmList;
+		List<T02CTG> allCategoriesChildren = categoryHelper.getAllCategoryChildren(t02ctg);
+		return t05itmService.findByT02ctgInAndBlFazerRevisaoOrderByDtLastRevisionAscDtInclusaoAsc(allCategoriesChildren, true);
 	}
 	
 	public T05ITM markItemAsReviewed(T05ITM t05itm) {

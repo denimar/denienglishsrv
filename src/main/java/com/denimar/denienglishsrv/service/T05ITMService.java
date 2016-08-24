@@ -15,9 +15,10 @@ import com.denimar.denienglishsrv.domain.T05ITM;
 @Transactional
 public interface T05ITMService extends JpaRepository<T05ITM, Long> {
 	
-	List<T05ITM> findByT02ctgOrderByDsItemAsc(T02CTG t02ctg);
-	List<T05ITM> findByT02ctgAndBlFavoriteOrderByDsItemAsc(T02CTG t02ctg, boolean blFavorite);
-	List<T05ITM> findByT02ctgAndBlFazerRevisaoOrderByDtLastRevisionAscDtInclusaoAsc(T02CTG t02ctg, boolean blFazerRevizao);	
+	List<T05ITM> findByT02ctgInOrderByDsItemAsc(List<T02CTG> t02ctg);	
+	List<T05ITM> findByT02ctgInAndBlFavoriteOrderByDsItemAsc(List<T02CTG> t02ctg, boolean blFavorite);
+	
+	List<T05ITM> findByT02ctgInAndBlFazerRevisaoOrderByDtLastRevisionAscDtInclusaoAsc(List<T02CTG> t02ctg, boolean blFazerRevizao);	
 	List<T05ITM> findByT02ctgAndBlFazerRevisaoAndDtLastRevisionLessThan(T02CTG t02ctg, boolean blFazerRevizao, Date dtLastRevision);	
 	
 	@Query("SELECT a FROM T05ITM a INNER JOIN FETCH a.t02ctg WHERE a.cdItem = :cdItem")

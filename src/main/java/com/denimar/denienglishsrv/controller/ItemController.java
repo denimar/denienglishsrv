@@ -63,7 +63,7 @@ public class ItemController {
 		if (t02ctg == null) {
 			return new RestDefaultReturn<T05ITM>(false, "Category not found!");			
 		} else {
-			return new RestDefaultReturn<T05ITM>(true, itemHelper.getItemsByCategory(t02ctg, true, true));
+			return new RestDefaultReturn<T05ITM>(true, itemHelper.getItemsByCategory(t02ctg, true));
 		}	
 	}
 	

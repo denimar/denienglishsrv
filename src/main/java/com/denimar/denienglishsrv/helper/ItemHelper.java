@@ -1,6 +1,7 @@
 package com.denimar.denienglishsrv.helper;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -28,6 +29,8 @@ public class ItemHelper {
 	private TextHelper textHelper;
 	@Autowired
 	private VideoHelper videoHelper;
+	@Autowired
+	private CategoryHelper categoryHelper;
 	
 	public T05ITM createItem(final int topCategoryNode, final int cd_categoria, final String ds_item, final String bt_imagem_item) throws Exception {
 		return createItem(topCategoryNode, cd_categoria, ds_item, ImageHelper.getBytesFromUriImagem(bt_imagem_item));
@@ -95,29 +98,16 @@ public class ItemHelper {
 	}
 	
 	public List<T05ITM> getItemsByCategory(final T02CTG category) {
-		return getItemsByCategory(category, true, false);
+		return getItemsByCategory(category, false);
 	}
 	
-	public List<T05ITM> getItemsByCategory(final T02CTG category, boolean onlyFavorites) {
-		return getItemsByCategory(category, true, onlyFavorites);
-	}
-	
-	public List<T05ITM> getItemsByCategory(final T02CTG category, final boolean deep, final boolean onlyFavorites) {
-		List<T05ITM> list = new ArrayList<T05ITM>();
-		
+	public List<T05ITM> getItemsByCategory(final T02CTG category, final boolean onlyFavorites) {
+		List<T02CTG> allCategoriesChildren = categoryHelper.getAllCategoryChildren(category);
 		if (onlyFavorites) {
-			list.addAll(t05itmService.findByT02ctgAndBlFavoriteOrderByDsItemAsc(category, onlyFavorites));			
-		} else {	
-			list.addAll(t05itmService.findByT02ctgOrderByDsItemAsc(category));
-		}
-		
-		List<T02CTG> children = t02ctgService.findByT02ctgOrderByDsCategoria(category);
-		
-		for (T02CTG child : children) {
-			list.addAll(getItemsByCategory(child, false, onlyFavorites));
-		}
-			
-		return list;
+			return t05itmService.findByT02ctgInAndBlFavoriteOrderByDsItemAsc(allCategoriesChildren, onlyFavorites);
+		} else {
+			return t05itmService.findByT02ctgInOrderByDsItemAsc(allCategoriesChildren);
+		}	
 	}
 
 }
