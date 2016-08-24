@@ -137,7 +137,8 @@ public class RevisionHelper {
 		List<T05ITM> t05itmList = new ArrayList<T05ITM>();		
 		
 		for (T02CTG category : t02ctgList) {
-			t05itmList.addAll(t05itmService.findByT02ctgAndBlFazerRevisaoAndDtLastRevisionLessThan(category, true, cal.getTime()));
+			//t05itmList.addAll(t05itmService.findByT02ctgAndBlFazerRevisaoAndDtLastRevisionLessThan(category, true, cal.getTime()));
+			t05itmList.addAll(t05itmService.findByT02ctgAndBlFazerRevisaoOrderByDtLastRevisionAscDtInclusaoAsc(category, true));
 		}
 		
 		return t05itmList;
