@@ -5,7 +5,6 @@ public class ExpressionResponseDTO {
 	private int cdDicionario;
 	private int cdPronuncia;
 	private String dsExpressao;
-	private int nrLevelOfLearning;
 	
 	public int getCdDicionario() {
 		return cdDicionario;
@@ -24,12 +23,6 @@ public class ExpressionResponseDTO {
 	}
 	public void setDsExpressao(String dsExpressao) {
 		this.dsExpressao = dsExpressao;
-	}
-	public int getNrLevelOfLearning() {
-		return nrLevelOfLearning;
-	}
-	public void setNrLevelOfLearning(int nrLevelOfLearning) {
-		this.nrLevelOfLearning = nrLevelOfLearning;
 	}
 	
 }

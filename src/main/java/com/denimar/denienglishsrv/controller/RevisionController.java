@@ -1,18 +1,19 @@
 package com.denimar.denienglishsrv.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.denimar.denienglishsrv.domain.T02CTG;
+import com.denimar.denienglishsrv.domain.T05EXP;
 import com.denimar.denienglishsrv.domain.T05ITM;
-import com.denimar.denienglishsrv.domain.T50DCI;
-import com.denimar.denienglishsrv.domain.T51PRN;
-import com.denimar.denienglishsrv.dto.ExpressionResponseDTO;
 import com.denimar.denienglishsrv.dto.ItemRevisionInfoResponseDTO;
 import com.denimar.denienglishsrv.helper.CategoryHelper;
 import com.denimar.denienglishsrv.helper.RevisionHelper;
@@ -75,32 +76,23 @@ public class RevisionController {
 	}
 
 	@RequestMapping(value = "/expressions/get", produces = MediaType.APPLICATION_JSON_VALUE )	
-	public RestDefaultReturn<ExpressionResponseDTO> getExpressionsByItem(@RequestParam("cd_item") long cdItem) {
+	public RestDefaultReturn<T05EXP> getExpressionsByItem(@RequestParam("cd_item") long cdItem, @RequestParam("onlyVisible") final boolean onlyVisible) {
 		T05ITM t05itm = t05itmService.findOneFetchingT02ctg(cdItem);
 		if (t05itm == null) {
-			return new RestDefaultReturn<ExpressionResponseDTO>(false, "Item not found!");			
+			return new RestDefaultReturn<T05EXP>(false, "Item not found!");			
 		} else {
-			return new RestDefaultReturn<ExpressionResponseDTO>(true, revisionHelper.getExpressionsByItem(t05itm));
+			return new RestDefaultReturn<T05EXP>(true, revisionHelper.getExpressionsByItem(t05itm, onlyVisible));
+		}	
+	}
+
+	@RequestMapping(value = "/expressions/upd", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST )	
+	public RestDefaultReturn<T05EXP> setExpressionsByItem(@RequestParam("cd_item") long cdItem, @RequestBody List<T05EXP> expressions) {
+		T05ITM t05itm = t05itmService.findOneFetchingT02ctg(cdItem);
+		if (t05itm == null) {
+			return new RestDefaultReturn<T05EXP>(false, "Item not found!");			
+		} else {
+			return new RestDefaultReturn<T05EXP>(true, revisionHelper.updExpressionsByItem(t05itm, expressions));
 		}	
 	}
 	
-	@RequestMapping(value = "/expressions/levelOfLearning/set", produces = MediaType.APPLICATION_JSON_VALUE )	
-	public RestDefaultReturn<Boolean> setLevelOfLearning(@RequestParam(name = "cd_dicionario", required = false) int cdDicionario, @RequestParam(name = "cd_pronuncia", required = false) int cdPronuncia, @RequestParam("nr_level_of_learning") int nrLevelOfLearning) {
-		
-		//Dictionary
-		if (cdDicionario != 0) {
-			T50DCI t50dci  = t50dciService.findOne(cdDicionario);
-			t50dci.setNrLevelOfLearning(nrLevelOfLearning);
-			t50dciService.save(t50dci);
-		
-		//Pronunciation	
-		} else if (cdPronuncia != 0) {
-			T51PRN t51prn  = t51prnService.findOne(cdPronuncia);
-			t51prn.setNrLevelOfLearning(nrLevelOfLearning);
-			t51prnService.save(t51prn);
-		}
-		
-		return new RestDefaultReturn<Boolean>(true, true);
-	}
-
 }

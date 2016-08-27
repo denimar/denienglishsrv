@@ -37,9 +37,6 @@ public class T50DCI implements java.io.Serializable {
 	@Column(name = "ds_expressoes")
 	private String dsExpressoes;
 	
-	@Column(name = "nr_level_of_learning")
-	private int nrLevelOfLearning;
-
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "dt_inclusao", nullable = false)
 	private Date dtInclusao = new Date();
@@ -86,14 +83,6 @@ public class T50DCI implements java.io.Serializable {
 
 	public void setDsExpressoes(String dsExpressoes) {
 		this.dsExpressoes = dsExpressoes;
-	}
-
-	public int getNrLevelOfLearning() {
-		return nrLevelOfLearning;
-	}
-
-	public void setNrLevelOfLearning(int nrLevelOfLearning) {
-		this.nrLevelOfLearning = nrLevelOfLearning;
 	}
 	
 	public Date getDtInclusao() {
