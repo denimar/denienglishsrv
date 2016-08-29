@@ -27,7 +27,7 @@ public class T07TXT implements java.io.Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int cdTexto;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "cd_item", nullable = false)
 	private T05ITM t05itm;
 	

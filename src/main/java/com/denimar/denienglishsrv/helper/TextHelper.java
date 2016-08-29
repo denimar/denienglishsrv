@@ -16,6 +16,8 @@ public class TextHelper {
 	private T07TXTService t07txtService;
 	@Autowired
 	private T07CTDService t07ctdService;
+	@Autowired
+	private RevisionHelper revisionHelper;
 	
 	public T07TXT createNewEmptyText(T05ITM t05itm) {
 		T07TXT t07txt = new T07TXT();
@@ -31,6 +33,10 @@ public class TextHelper {
 		t07ctdService.save(t07ctd);
 		
 		return t07txt;
+	}
+	
+	public void updSpacedRevision(T07TXT t07txt) {
+		revisionHelper.updText(t07txt.getT05itm(), true);
 	}
 
 }

@@ -103,6 +103,61 @@ public class RevisionHelper {
 		return expressions;
 	}
 	
+	/*
+	 * When the text of videos (subtitles) or texts itself are changed, its revision expressions had to be changed too, respecting the current content
+	 */
+	public List<T05EXP> updText(T05ITM t05itm, boolean returnOnlyVisible) {
+		List<T05EXP> t05expList = t05expService.findByT05itm(t05itm);
+		if (t05expList.size() == 0) {
+			return getExpressionsByItem(t05itm, returnOnlyVisible);
+		} else {
+			//
+			t05expService.delete(t05expService.findByT05itm(t05itm));
+			
+			//
+			String allTextsFromItem = getAllTextsFromItem(t05itm);
+			
+			//add the dictionary expressions
+			List<T50DCI> dictionaryExpressionsInText = getDictionaryExpressionsInText(allTextsFromItem);
+			for (T50DCI t50dci : dictionaryExpressionsInText) {
+				T05EXP t05exp = new T05EXP();
+				t05exp.setT05itm(t05itm);
+				t05exp.setT50dci(t50dci);
+				for (int index = 0 ; index < t05expList.size() ; index++) {
+					T05EXP item = t05expList.get(index);
+					T50DCI t50dciItem = item.getT50dci();  
+					
+					if ((t50dciItem != null) && (t50dciItem.equals(t50dci))) {
+						t05exp.setBlMostrar(item.isBlMostrar());
+						break;
+					}
+				}				
+				t05expService.save(t05exp);				
+			}
+			
+			//add the pronunciation expressions
+			List<T51PRN> pronunciationExpressionsInText = getPronunciationExpressionsInText(allTextsFromItem);
+			for (T51PRN t51prn : pronunciationExpressionsInText) {
+				T05EXP t05exp = new T05EXP();
+				t05exp.setT05itm(t05itm);
+				t05exp.setT51prn(t51prn);
+				for (int index = 0 ; index < t05expList.size() ; index++) {
+					T05EXP item = t05expList.get(index);
+					T51PRN t51prnItem = item.getT51prn();  
+					
+					if ((t51prnItem != null) && (t51prnItem.equals(t51prn))) {
+						t05exp.setBlMostrar(item.isBlMostrar());
+						break;
+					}
+				}				
+				t05expService.save(t05exp);				
+			}
+			
+			return getExpressionsByItem(t05itm, returnOnlyVisible);
+			
+		}	
+	}
+	
 	private String getAllTextsFromItem(T05ITM t05itm) {
 		StringBuilder text = new StringBuilder(); //Text in which will be seached for expressions
 		

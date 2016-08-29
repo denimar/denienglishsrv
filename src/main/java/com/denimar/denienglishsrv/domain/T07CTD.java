@@ -23,7 +23,7 @@ public class T07CTD {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int cdTextoConteudo;	
 	
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "cd_texto", nullable = false)
 	private T07TXT t07txt;
 	

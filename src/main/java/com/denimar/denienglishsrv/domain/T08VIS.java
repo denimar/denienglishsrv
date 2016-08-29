@@ -29,7 +29,7 @@ public class T08VIS implements java.io.Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int cdItemSubtitle;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "cd_video", nullable = false)
 	private T08VDO t08vdo;
 	

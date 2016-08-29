@@ -20,6 +20,7 @@ import com.denimar.denienglishsrv.domain.T08VDO;
 import com.denimar.denienglishsrv.domain.T08VIS;
 import com.denimar.denienglishsrv.dto.SubtitleImportLyricsRequestDTO;
 import com.denimar.denienglishsrv.dto.SubtitleRequestDTO;
+import com.denimar.denienglishsrv.helper.RevisionHelper;
 import com.denimar.denienglishsrv.helper.SubtitleHelper;
 import com.denimar.denienglishsrv.service.T05ITMService;
 import com.denimar.denienglishsrv.service.T08VDOService;
@@ -39,7 +40,8 @@ public class SubtitleController {
 	private T08VISService t08visService;
 	@Autowired
 	private SubtitleHelper subtitleHelper;
-	
+	@Autowired
+	private RevisionHelper revisionHelper;
 	
 	@RequestMapping(value = "/list", produces = MediaType.APPLICATION_JSON_VALUE)
 	public RestDefaultReturn<T08VIS> getSubtitles(@RequestParam("cd_item") final long cd_item)  {
@@ -63,6 +65,9 @@ public class SubtitleController {
 			t08vis.setNrEnd(subtitleRequest.getNr_end());
 			t08vis.setDsTexto(subtitleRequest.getDs_texto());
 			t08visService.save(t08vis);
+			
+			revisionHelper.updText(t08vdo.getT05itm(), true);
+			
 			return new RestDefaultReturn<T08VIS>(true, t08vis);
 		}	
 	}
@@ -74,6 +79,7 @@ public class SubtitleController {
 			return new RestDefaultReturn<T08VIS>(false, "Record not found!");
 		} else {
 			t08visService.delete(t08vis);
+			revisionHelper.updText(t08vis.getT08vdo().getT05itm(), true);
 			return new RestDefaultReturn<T08VIS>(true, t08vis);
 		}	
 	}
@@ -89,6 +95,7 @@ public class SubtitleController {
 			t08vis.setDsTexto(subtitleRequest.getDs_texto());
 			t08vis.setDtAlteracao(new Date());
 			t08visService.save(t08vis);
+			revisionHelper.updText(t08vis.getT08vdo().getT05itm(), true);
 			return new RestDefaultReturn<T08VIS>(true, t08vis);
 		}	
 	}
@@ -112,6 +119,9 @@ public class SubtitleController {
 				
 				String strFileContent = IOUtils.toString(file.getInputStream());
 				subtitleHelper.addSubtitleFromFileStrContent(t08vdo, strFileContent);
+				
+				revisionHelper.updText(t05itm, true);
+				
 				return new RestDefaultReturn<T08VIS>(true, t08visService.findByT08vdo_t05itmOrderByNrStart(t05itm));
 			}	
 		}	
@@ -131,6 +141,9 @@ public class SubtitleController {
 				t08visService.delete(t08visService.findByT08vdo(t08vdo));
 				
 				subtitleHelper.addSubtitleFromFileLyrics(t08vdo, subtitleImportLyricsRequestDTO.getLyrics());
+				
+				revisionHelper.updText(t05itm, true);
+				
 				return new RestDefaultReturn<T08VIS>(true, t08visService.findByT08vdo_t05itmOrderByNrStart(t05itm));
 			}	
 		}	

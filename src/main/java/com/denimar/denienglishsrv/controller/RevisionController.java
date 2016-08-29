@@ -86,12 +86,22 @@ public class RevisionController {
 	}
 
 	@RequestMapping(value = "/expressions/upd", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST )	
-	public RestDefaultReturn<T05EXP> setExpressionsByItem(@RequestParam("cd_item") long cdItem, @RequestBody List<T05EXP> expressions) {
+	public RestDefaultReturn<T05EXP> updExpressionsByItem(@RequestParam("cd_item") long cdItem, @RequestBody List<T05EXP> expressions) {
 		T05ITM t05itm = t05itmService.findOneFetchingT02ctg(cdItem);
 		if (t05itm == null) {
 			return new RestDefaultReturn<T05EXP>(false, "Item not found!");			
 		} else {
 			return new RestDefaultReturn<T05EXP>(true, revisionHelper.updExpressionsByItem(t05itm, expressions));
+		}	
+	}
+
+	@RequestMapping(value = "/expressions/updtext", produces = MediaType.APPLICATION_JSON_VALUE )	
+	public RestDefaultReturn<T05EXP> updTextItem(@RequestParam("cd_item") long cdItem, @RequestParam("returnOnlyVisible") final boolean returnOnlyVisible) {
+		T05ITM t05itm = t05itmService.findOneFetchingT02ctg(cdItem);
+		if (t05itm == null) {
+			return new RestDefaultReturn<T05EXP>(false, "Item not found!");			
+		} else {
+			return new RestDefaultReturn<T05EXP>(true, revisionHelper.updText(t05itm, returnOnlyVisible));
 		}	
 	}
 	

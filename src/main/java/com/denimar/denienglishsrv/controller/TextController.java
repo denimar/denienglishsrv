@@ -68,6 +68,9 @@ public class TextController {
 		} else {
 			t07ctd.setTxConteudo(textContentRequestDTO.getTx_conteudo());
 			t07ctdService.save(t07ctd);
+			
+			textHelper.updSpacedRevision(t07ctd.getT07txt());
+			
 			return new RestDefaultReturn<T07CTD>(true, t07ctd);
 		}	
 	}

@@ -85,7 +85,7 @@ public class SubtitleHelper {
 			}
 		}
 	}
-
+	
 	private Double StrTimeToDouble(String prTimeStr) {
 		//00:05:22,900
 		
