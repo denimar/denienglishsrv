@@ -100,6 +100,35 @@ public class SubtitleController {
 		}	
 	}
 	
+	@RequestMapping(value = "/incasecond", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)	
+	public RestDefaultReturn<T08VIS> incASecond(@RequestParam final int cd_item_subtitle)  {
+		T08VIS t08vis = t08visService.findOne(cd_item_subtitle);
+		if (t08vis == null) {
+			return new RestDefaultReturn<T08VIS>(false, "Record not found!");
+		} else {
+			t08vis.setNrStart(t08vis.getNrStart() + 1);
+			t08vis.setNrEnd(t08vis.getNrEnd() + 1);
+			t08vis.setDtAlteracao(new Date());
+			t08visService.save(t08vis);
+			return new RestDefaultReturn<T08VIS>(true, t08vis);
+		}	
+	}
+	
+	@RequestMapping(value = "/decasecond", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)	
+	public RestDefaultReturn<T08VIS> decASecond(@RequestParam final int cd_item_subtitle)  {
+		T08VIS t08vis = t08visService.findOne(cd_item_subtitle);
+		if (t08vis == null) {
+			return new RestDefaultReturn<T08VIS>(false, "Record not found!");
+		} else {
+			t08vis.setNrStart(t08vis.getNrStart() - 1);
+			t08vis.setNrEnd(t08vis.getNrEnd() - 1);
+			t08vis.setDtAlteracao(new Date());
+			t08visService.save(t08vis);
+			return new RestDefaultReturn<T08VIS>(true, t08vis);
+		}	
+	}
+	
+	
 	@RequestMapping(value = "/importsrt", method = RequestMethod.POST)
 	public RestDefaultReturn<T08VIS> uploadSrt(MultipartHttpServletRequest request) throws IOException {
         
