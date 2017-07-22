@@ -22,8 +22,8 @@ import com.github.axet.wget.info.ex.DownloadInterruptedError;
 public class MainTestes {
 
 	public static void main(String[] args) throws Exception {
-		String link = "https://docs.google.com/vt?id=0B6WapjXIIlDGTjBEcnpzd09Mdkk";		
-		getPosterFromGoogleDrive(id)
+		//String link = "https://docs.google.com/vt?id=0B6WapjXIIlDGTjBEcnpzd09Mdkk";		
+		//getPosterFromGoogleDrive(id)
 		
 	}
 	
